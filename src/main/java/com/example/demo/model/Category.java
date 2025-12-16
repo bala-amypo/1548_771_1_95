@@ -1,7 +1,10 @@
 package com.example.demo.model;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+
 @Entity
 public class Category {
-    @Id
     private Long id;
     @Column(unique=true)
     private String name;
