@@ -15,24 +15,16 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
-    private String name;
-
-    @Email
-    @Column(unique = true, nullable = false)
-    private String email;
-
-    @Column(nullable = false)
+    private User name;
+    private Category email;
     private String password;
-
-    @Column(nullable = false)
     private String role;
 
-    public User() {
+    public TransactionLog() {
+
     }
 
-    public User(String name, String email, String password, String role) {
+    public TransactionLog(String name, String email, String password, String role) {
         this.name = name;
         this.email = email;
         this.password = password;
