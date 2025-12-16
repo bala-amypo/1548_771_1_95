@@ -15,9 +15,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private User name;
-    private Category email;
-    private String password;
+    // private User name;
+    // private Category email;
+    private String description;
     private String role;
 
     public TransactionLog() {
