@@ -1,53 +1,53 @@
-// package com.example.demo1.model;
+package com.example.demo1.model;
 
-// import jakarta.persistence.Column;
-// import jakarta.persistence.Entity;
-// import jakarta.persistence.GeneratedValue;
-// import jakarta.persistence.GenerationType;
-// import jakarta.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
-// @Entity
-// public class Category {
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Entity
+public class Category {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-//     private Long id;
-//     @Column(unique=true)
-//     private String name;
-//     private String type;
+    private Long id;
+    @Column(unique=true)
+    private String name;
+    private String type;
 
-//     public Category(){
+    public Category(){
 
-//     }
+    }
 
-//     public Category(String name, String type) {
-//         this.name = name;
-//         this.type = type;
-//     }
+    public Category(String name, String type) {
+        this.name = name;
+        this.type = type;
+    }
 
-//     public Long getId() {
-//         return id;
-//     }
+    public Long getId() {
+        return id;
+    }
 
-//     public String getName() {
-//         return name;
-//     }
+    public String getName() {
+        return name;
+    }
 
-//     public String getType() {
-//         return type;
-//     }
+    public String getType() {
+        return type;
+    }
 
-//     public void setId(Long id) {
-//         this.id = id;
-//     }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-//     public void setName(String name) {
-//         this.name = name;
-//     }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-//     public void setType(String type) {
-//         this.type = type;
-//     }
+    public void setType(String type) {
+        this.type = type;
+    }
     
     
-// }
+}
