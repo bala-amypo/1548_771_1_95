@@ -1,4 +1,8 @@
+UserService.java
 User register(User user)
 User findByEmail(String email)
 
-AuthControlle.java
+AuthController.
+post-register,post -login
+
+UserServiceImpl.java
