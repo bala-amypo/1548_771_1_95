@@ -1,8 +1,9 @@
-UserService.java
-User register(User user)
-User findByEmail(String email)
 
-AuthController.
-post-register,post -login
+package com.example.demo1.service;
 
-UserServiceImpl.java
+import com.example.demo1.model.User;
+
+public interface UserService {
+    User register(User user);
+    User findByEmail(String email);
+}
