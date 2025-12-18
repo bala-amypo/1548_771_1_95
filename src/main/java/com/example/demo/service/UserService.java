@@ -1,7 +1,6 @@
+package com.example.demo3.service;
 
-package com.example.demo1.service;
-
-import com.example.demo1.model.User;
+import com.example.demo3.model.User;
 
 public interface UserService {
     User register(User user);
