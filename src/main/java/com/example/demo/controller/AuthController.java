@@ -13,7 +13,7 @@ import com.example.demo.model.User;
 public class AuthController {
 
     @Autowired
-    private com.example.demo3.service.UserService userService;
+    private UserService userService;
 
     @PostMapping("/register")
     public User register(@RequestBody User user) {
