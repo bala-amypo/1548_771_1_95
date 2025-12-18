@@ -3,9 +3,9 @@ package com.example.demo3.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo3.model.User;
-import com.example.demo3.respository.UserRepository;
-import com.example.demo3.service.UserService;
+import com.example.demo.model.User;
+import com.example.demo.respository.UserRepository;
+import com.example.demo.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
