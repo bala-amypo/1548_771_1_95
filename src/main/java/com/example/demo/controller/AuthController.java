@@ -23,7 +23,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody User user) 
+    public String login(@RequestBody User user) {
         User dbUser = userService.findByEmail(user.getEmail());
 
         if (dbUser == null) {
@@ -36,4 +36,5 @@ public class AuthController {
 
         return "Invalid email or password";
     }
+}
 
