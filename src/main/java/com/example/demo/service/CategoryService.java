@@ -1,8 +1,8 @@
-package com.example.demo3.service;
+package com.example.demo.service;
 
 import java.util.List;
 
-import com.example.demo3.model.Category;
+import com.example.demo.model.Category;
 
     public interface CategoryService {
     Category addCategory(Category category);

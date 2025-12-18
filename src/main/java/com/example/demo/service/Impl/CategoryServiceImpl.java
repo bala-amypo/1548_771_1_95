@@ -1,13 +1,13 @@
-package com.example.demo3.service.impl;
+package com.example.demo.service.impl;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo3.model.Category;
-import com.example.demo3.repository.CategoryRepository;
-import com.example.demo3.service.CategoryService;
+import com.example.demo.model.Category;
+import com.example.demo.repository.CategoryRepository;
+import com.example.demo.service.CategoryService;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {

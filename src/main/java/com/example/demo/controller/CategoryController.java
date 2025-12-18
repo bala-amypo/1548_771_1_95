@@ -1,4 +1,4 @@
-package com.example.demo3.controller;
+package com.example.demo.controller;
 
 import java.util.List;
 
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo3.model.Category;
-import com.example.demo3.service.CategoryService;
+import com.example.demo.model.Category;
+import com.example.demo.service.CategoryService;
 
 @RestController
 @RequestMapping("/categories")
