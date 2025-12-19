@@ -38,3 +38,70 @@
 //                 .orElseThrow(() -> new RuntimeException("Budget plan not found"));
 //     }
 // }
+
+
+
+
+
+
+package com.example.demo4.service.impl;
+
+import org.springframework.stereotype.Service;
+
+import com.example.demo4.exception.BadRequestException;
+import com.example.demo4.model.BudgetPlan;
+import com.example.demo4.model.User;
+import com.example.demo4.repository.BudgetPlanRepository;
+import com.example.demo4.repository.UserRepository;
+import com.example.demo4.service.BudgetPlanService;
+
+@Service
+public class BudgetPlanServiceImpl implements BudgetPlanService {
+
+    private final BudgetPlanRepository budgetPlanRepository;
+    private final UserRepository userRepository;
+
+    public BudgetPlanServiceImpl(
+            BudgetPlanRepository budgetPlanRepository,
+            UserRepository userRepository
+    ) {
+        this.budgetPlanRepository = budgetPlanRepository;
+        this.userRepository = userRepository;
+    }
+
+    @Override
+    public BudgetPlan createBudgetPlan(Long userId, BudgetPlan plan) {
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() ->
+                        new BadRequestException("User not found: " + userId)
+                );
+
+        plan.setUser(user);
+        plan.validate();
+
+        budgetPlanRepository.findByUserAndMonthAndYear(
+                user, plan.getMonth(), plan.getYear()
+        ).ifPresent(existing -> {
+            throw new BadRequestException(
+                    "Budget plan already exists for this month and year"
+            );
+        });
+
+        return budgetPlanRepository.save(plan);
+    }
+
+    @Override
+    public BudgetPlan getBudgetPlan(Long userId, Integer month, Integer year) {
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() ->
+                        new BadRequestException("User not found: " + userId)
+                );
+
+        return budgetPlanRepository.findByUserAndMonthAndYear(user, month, year)
+                .orElseThrow(() ->
+                        new BadRequestException("Budget plan not found")
+                );
+    }
+}

@@ -8,3 +8,17 @@
 //     Optional<BudgetSummary> findByBudgetPlanId(Long budgetPlanId);
 // }
 
+package com.example.demo4.repository;
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.example.demo4.model.BudgetPlan;
+import com.example.demo4.model.BudgetSummary;
+
+public interface BudgetSummaryRepository
+        extends JpaRepository<BudgetSummary, Long> {
+
+    Optional<BudgetSummary> findByBudgetPlan(BudgetPlan plan);
+}
