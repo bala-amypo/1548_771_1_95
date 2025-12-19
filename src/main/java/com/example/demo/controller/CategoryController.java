@@ -50,15 +50,16 @@ import com.example.demo.service.CategoryService;
 public class CategoryController {
 
     @Autowired
-    CategoryService categoryService;
+        CategoryService categoryService;
 
-    @PostMapping
-    public Category add(@RequestBody Category category) {
-        return categoryService.addCategory(category);
-    }
+            @PostMapping
+                public Category add(@RequestBody Category category) {
+                        return categoryService.addCategory(category);
+                            }
 
-    @GetMapping
-    public List<Category> all() {
-        return categoryService.getAllCategories();
-    }
-}
+                                @GetMapping
+                                    public List<Category> all() {
+                                            return categoryService.getAllCategories();
+                                                }
+                                                }
+                                                
