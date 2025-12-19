@@ -77,16 +77,16 @@
 
 
 
-package com.example.demo4.service.impl;
+package com.example.demo.service.impl;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.example.demo4.exception.BadRequestException;
-import com.example.demo4.model.Category;
-import com.example.demo4.repository.CategoryRepository;
-import com.example.demo4.service.CategoryService;
+import com.example.demo.exception.BadRequestException;
+import com.example.demo.model.Category;
+import com.example.demo.repository.CategoryRepository;
+import com.example.demo.service.CategoryService;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {

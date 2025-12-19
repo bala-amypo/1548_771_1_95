@@ -19,10 +19,10 @@
 //     List<Category> getAllCategories();
 // }
 
-package com.example.demo4.service;
+package com.example.demo.service;
 
 import java.util.List;
-import com.example.demo4.model.Category;
+import com.example.demo.model.Category;
 
 public interface CategoryService {
 
