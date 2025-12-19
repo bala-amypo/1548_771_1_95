@@ -1,72 +1,99 @@
-// package com.example.demo1.model;
+// package com.example.demo3.model;
 
+// import org.springframework.data.annotation.Id;
+
+// import jakarta.persistence.Column;
+// import jakarta.persistence.Entity;
 // import jakarta.persistence.GeneratedValue;
 // import jakarta.persistence.GenerationType;
-// import jakarta.persistence.Id;
-// import jakarta.validation.constraints.Min;
-// import jakarta.validation.constraints.Max;
+// import jakarta.persistence.JoinColumn;
+// import jakarta.persistence.ManyToOne;
+// import jakarta.persistence.Table;
+// import jakarta.persistence.UniqueConstraint;
+
+// @Entity
+// @Table(name = "budget_plans",
+//        uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "month", "year"}))
 
 // public class BudgetPlan {
+
 //     @Id
 //     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
 //     private Long id;
+
+//     @ManyToOne
+//     @JoinColumn(name = "user_id", nullable = false)
 //     private User user;
-//     @Min(value =1)
-//     @Max(value =12)
-//     private Integer month;
+
+//     @Column(nullable = false)
+//     private Integer month; 
+
+//     @Column(nullable = false)
 //     private Integer year;
-//     @Min(value = 0)
-//     private Double IncomeTarget;
-//     @Min(value = 0)
-//     private Double ExpenseLimit;
+//     private Double incomeTarget;
+//     private Double expenseLimit;
+
 //     public BudgetPlan(){
 
 //     }
+
 //     public BudgetPlan(User user, Integer month, Integer year, Double incomeTarget, Double expenseLimit) {
 //         this.user = user;
 //         this.month = month;
 //         this.year = year;
-//         IncomeTarget = incomeTarget;
-//         ExpenseLimit = expenseLimit;
+//         this.incomeTarget = incomeTarget;
+//         this.expenseLimit = expenseLimit;
 //     }
+
 //     public Long getId() {
 //         return id;
 //     }
+
 //     public User getUser() {
 //         return user;
 //     }
+
 //     public Integer getMonth() {
 //         return month;
 //     }
+
 //     public Integer getYear() {
 //         return year;
 //     }
+
 //     public Double getIncomeTarget() {
-//         return IncomeTarget;
+//         return incomeTarget;
 //     }
+
 //     public Double getExpenseLimit() {
-//         return ExpenseLimit;
+//         return expenseLimit;
 //     }
+
 //     public void setId(Long id) {
 //         this.id = id;
 //     }
+
 //     public void setUser(User user) {
 //         this.user = user;
 //     }
+
 //     public void setMonth(Integer month) {
 //         this.month = month;
 //     }
+
 //     public void setYear(Integer year) {
 //         this.year = year;
 //     }
+
 //     public void setIncomeTarget(Double incomeTarget) {
-//         IncomeTarget = incomeTarget;
-//     }
-//     public void setExpenseLimit(Double expenseLimit) {
-//         ExpenseLimit = expenseLimit;
+//         this.incomeTarget = incomeTarget;
 //     }
 
+//     public void setExpenseLimit(Double expenseLimit) {
+//         this.expenseLimit = expenseLimit;
+//     }
     
-    
+
+
+
 // }
