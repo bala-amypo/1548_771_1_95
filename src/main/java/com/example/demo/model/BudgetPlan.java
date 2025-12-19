@@ -98,19 +98,10 @@
 
 // }
 
+package com.example.demo.model;
 
-package com.example.demo4.model;
-
-import org.springframework.data.annotation.Id;
-
-import com.example.demo4.exception.BadRequestException;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import com.example.demo.exception.BadRequestException;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "budget_plans")
