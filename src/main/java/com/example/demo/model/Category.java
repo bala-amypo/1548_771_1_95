@@ -1,62 +1,64 @@
-package com.example.demo.model;
+// package com.example.demo.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
+// import jakarta.persistence.Column;
+// import jakarta.persistence.Entity;
+// import jakarta.persistence.GeneratedValue;
+// import jakarta.persistence.GenerationType;
+// import jakarta.persistence.Id;
+// import jakarta.persistence.Table;
+// import jakarta.persistence.UniqueConstraint;
 
- @Entity
-    @Table(name = "categories", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "name")
-})
-public class Category {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+//  @Entity
+//     @Table(name = "categories", uniqueConstraints = {
+//     @UniqueConstraint(columnNames = "name")
+// })
+// public class Category {
+//     @Id
+//     @GeneratedValue(strategy = GenerationType.IDENTITY)
+//     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String name;
+//     @Column(nullable = false, unique = true)
+//     private String name;
 
-    @Column(nullable = false)
-    private String type; 
+//     @Column(nullable = false)
+//     private String type; 
 
-    public Category(){
+//     public Category(){
 
-    }
+//     }
 
-    public Category(String name, String type) {
-        this.name = name;
-        this.type = type;
-    }
+//     public Category(String name, String type) {
+//         this.name = name;
+//         this.type = type;
+//     }
 
-    public Long getId() {
-        return id;
-    }
+//     public Long getId() {
+//         return id;
+//     }
 
-    public String getName() {
-        return name;
-    }
+//     public String getName() {
+//         return name;
+//     }
 
-    public String getType() {
-        return type;
-    }
+//     public String getType() {
+//         return type;
+//     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+//     public void setId(Long id) {
+//         this.id = id;
+//     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+//     public void setName(String name) {
+//         this.name = name;
+//     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
+//     public void setType(String type) {
+//         this.type = type;
+//     }
     
 
 
 
-}
+// }
+
+
