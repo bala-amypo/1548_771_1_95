@@ -77,34 +77,39 @@
 
 package com.example.demo3.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo3.model.Category;
-import com.example.demo3.service.CategoryService;
+import com.example.demo3.model.User;
+import com.example.demo3.service.UserService;
 
 @RestController
-@RequestMapping("/categories")
-
-public class CategoryController {
+@RequestMapping("/auth")
+public class AuthController {
 
     @Autowired
-    CategoryService categoryService;
+    private UserService userService;
 
-    @PostMapping
-    public Category add(@RequestBody Category category) {
-        return categoryService.addCategory(category);
+    @PostMapping("/register")
+    public User register(@RequestBody User user) {
+        return userService.register(user);
     }
+    @PostMapping("/login")
+    public String login(@RequestBody User user) {
+        User dbUser = userService.findByEmail(user.getEmail());
 
-    @GetMapping
-    public List<Category> all() {
-        return categoryService.getAllCategories();
+        if (dbUser == null) {
+            return "Invalid email or password";
+        }
+        if (dbUser.getPassword().equals(user.getPassword())) {
+            return "Login successful! Welcome " + dbUser.getName() + " (Role: " + dbUser.getRole() + ")";
+        }
+
+        return "Invalid email or password";
     }
 }
+
 
