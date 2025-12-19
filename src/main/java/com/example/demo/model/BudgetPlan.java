@@ -102,11 +102,11 @@
 
 
 
-package com.example.demo4.model;
+package com.example.demo.model;
 
 import org.springframework.data.annotation.Id;
 
-import com.example.demo4.exception.BadRequestException;
+import com.example.demo.exception.BadRequestException;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

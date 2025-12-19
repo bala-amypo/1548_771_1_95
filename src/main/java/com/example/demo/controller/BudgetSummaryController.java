@@ -29,7 +29,7 @@
 // }
 
 
-package com.example.demo4.controller;
+package com.example.demo.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,8 +37,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo4.model.BudgetSummary;
-import com.example.demo4.service.BudgetSummaryService;
+import com.example.demo.model.BudgetSummary;
+import com.example.demo.service.BudgetSummaryService;
 
 @RestController
 @RequestMapping("/summary")
