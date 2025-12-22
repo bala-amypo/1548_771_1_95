@@ -1,35 +1,3 @@
-// // // package com.example.demo.controller;
-
-// // // import java.util.List;
-
-// // // import org.springframework.beans.factory.annotation.Autowired;
-// // // import org.springframework.web.bind.annotation.GetMapping;
-// // // import org.springframework.web.bind.annotation.PostMapping;
-// // // import org.springframework.web.bind.annotation.RequestBody;
-// // // import org.springframework.web.bind.annotation.RequestMapping;
-// // // import org.springframework.web.bind.annotation.RestController;
-
-// // // import com.example.demo.model.Category;
-// // // import com.example.demo.service.CategoryService;
-
-// // // @RestController
-// // // @RequestMapping("/categories")
-// // // public class CategoryController {
-
-// // //     @Autowired
-// // //     private CategoryService service;
-
-// // //     @PostMapping
-// // //     public Category add(@RequestBody Category category) {
-// // //         return service.addCategory(category);
-// // //     }
-
-// // //     @GetMapping
-// // //     public List<Category> all() {
-// // //         return service.getAllCategories();
-// // //     }
-// // // }
-
 // // package com.example.demo.controller;
 
 // // import java.util.List;
@@ -46,22 +14,54 @@
 
 // // @RestController
 // // @RequestMapping("/categories")
-
 // // public class CategoryController {
 
 // //     @Autowired
-// //         CategoryService categoryService;
+// //     private CategoryService service;
 
-// //             @PostMapping
-// //                 public Category add(@RequestBody Category category) {
-// //                         return categoryService.addCategory(category);
-// //                             }
+// //     @PostMapping
+// //     public Category add(@RequestBody Category category) {
+// //         return service.addCategory(category);
+// //     }
 
-// //                                 @GetMapping
-// //                                     public List<Category> all() {
-// //                                             return categoryService.getAllCategories();
-// //                                                 }
-// //                                                 }
+// //     @GetMapping
+// //     public List<Category> all() {
+// //         return service.getAllCategories();
+// //     }
+// // }
+
+// package com.example.demo.controller;
+
+// import java.util.List;
+
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.web.bind.annotation.GetMapping;
+// import org.springframework.web.bind.annotation.PostMapping;
+// import org.springframework.web.bind.annotation.RequestBody;
+// import org.springframework.web.bind.annotation.RequestMapping;
+// import org.springframework.web.bind.annotation.RestController;
+
+// import com.example.demo.model.Category;
+// import com.example.demo.service.CategoryService;
+
+// @RestController
+// @RequestMapping("/categories")
+
+// public class CategoryController {
+
+//     @Autowired
+//         CategoryService categoryService;
+
+//             @PostMapping
+//                 public Category add(@RequestBody Category category) {
+//                         return categoryService.addCategory(category);
+//                             }
+
+//                                 @GetMapping
+//                                     public List<Category> all() {
+//                                             return categoryService.getAllCategories();
+//                                                 }
+//                                                 }
 
 
 
@@ -99,36 +99,3 @@ public class CategoryController {
         return categoryService.getAllCategories();
     }
 }
-// package com.example.demo.controller;
-
-// import java.util.List;
-
-// import org.springframework.web.bind.annotation.GetMapping;
-// import org.springframework.web.bind.annotation.PostMapping;
-// import org.springframework.web.bind.annotation.RequestBody;
-// import org.springframework.web.bind.annotation.RequestMapping;
-// import org.springframework.web.bind.annotation.RestController;
-
-// import com.example.demo4.model.Category;
-// import com.example.demo4.service.CategoryService;
-
-// @RestController
-// @RequestMapping("/categories")
-// public class CategoryController {
-
-//     private final CategoryService service;
-
-//     public CategoryController(CategoryService service) {
-//         this.service = service;
-//     }
-
-//     @PostMapping
-//     public Category create(@RequestBody Category category) {
-//         return service.addCategory(category); 
-//     }
-
-//     @GetMapping
-//     public List<Category> all() {
-//         return service.getAllCategories();     
-//     }
-// }
