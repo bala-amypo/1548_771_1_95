@@ -62,12 +62,15 @@ public class BudgetPlanController {
         return budgetPlanService.createBudgetPlan(userId, plan);
     }
 
-    @GetMapping("/{userId}/{month}/{year}")
-    public BudgetPlan get(@PathVariable Long userId,
-                          @PathVariable Integer month,
-                          @PathVariable Integer year) {
-        return budgetPlanService.getBudgetPlan(userId, month, year);
-    }
+    @GetMapping
+    public List<BudgetPlan> getBudgetPlan(
+        @RequestParam Long userId,
+        @RequestParam Integer month,
+        @RequestParam Integer year) {
+
+    return budgetPlanService.getBudgetPlan(userId, month, year);
+}
+
 }
 
 
