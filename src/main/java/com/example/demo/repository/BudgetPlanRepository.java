@@ -1,13 +1,3 @@
-// package com.example.demo3.repository;
-
-// import org.springframework.data.jpa.repository.JpaRepository;
-// import com.example.demo3.model.BudgetPlan;
-
-// import java.util.Optional;
-
-//     public interface BudgetPlanRepository extends JpaRepository<BudgetPlan, Long> {
-//     Optional<BudgetPlan> findByUserIdAndMonthAndYear(Long userId, Integer month, Integer year);
-// }
 
 
 package com.example.demo.repository;
