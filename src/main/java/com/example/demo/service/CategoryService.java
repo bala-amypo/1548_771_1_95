@@ -1,12 +1,12 @@
 
-package com.example.demo.service;
+// package com.example.demo.service;
 
-import java.util.List;
-import com.example.demo.model.Category;
+// import java.util.List;
+// import com.example.demo.model.Category;
 
-public interface CategoryService {
+// public interface CategoryService {
 
-    Category addCategory(Category category);
+//     Category addCategory(Category category);
 
-    List<Category> getAllCategories();
-}
+//     List<Category> getAllCategories();
+// }
