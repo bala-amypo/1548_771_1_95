@@ -5,6 +5,7 @@ import java.util.Date;
 
 import org.springframework.stereotype.Component;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -13,6 +14,7 @@ import io.jsonwebtoken.security.Keys;
 public class JwtTokenProvider {
 
     private final Key key;
+    private final long jwtExpirationMs = 86400000; // 1 day
 
     public JwtTokenProvider() {
         this.key = Keys.hmacShaKeyFor(
@@ -21,15 +23,42 @@ public class JwtTokenProvider {
         );
     }
 
-    public String generateToken(String username) {
+    // ✅ USED BY AuthController
+    public String generateToken(Long userId, String email, String role) {
         Date now = new Date();
-        Date expiryDate = new Date(now.getTime() + 86400000); // 1 day
+        Date expiryDate = new Date(now.getTime() + jwtExpirationMs);
 
         return Jwts.builder()
-                .setSubject(username)
+                .setSubject(email)
+                .claim("userId", userId)
+                .claim("role", role)
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
+    }
+
+    // ✅ USED BY JwtAuthenticationFilter
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    // ✅ USED BY JwtAuthenticationFilter
+    public String getEmailFromToken(String token) {
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+
+        return claims.getSubject();
     }
 }
