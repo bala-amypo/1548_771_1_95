@@ -1,41 +1,41 @@
 
 
-package com.example.demo.controller;
+// package com.example.demo.controller;
 
-import java.util.List;
+// import java.util.List;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+// import org.springframework.web.bind.annotation.GetMapping;
+// import org.springframework.web.bind.annotation.PathVariable;
+// import org.springframework.web.bind.annotation.PostMapping;
+// import org.springframework.web.bind.annotation.RequestBody;
+// import org.springframework.web.bind.annotation.RequestMapping;
+// import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.model.TransactionLog;
-import com.example.demo.service.TransactionService;
+// import com.example.demo.model.TransactionLog;
+// import com.example.demo.service.TransactionService;
 
-@RestController
-@RequestMapping("/transactions")
-public class TransactionController {
+// @RestController
+// @RequestMapping("/transactions")
+// public class TransactionController {
 
-    private final TransactionService transactionService;
+//     private final TransactionService transactionService;
 
-    public TransactionController(TransactionService transactionService) {
-        this.transactionService = transactionService;
-    }
+//     public TransactionController(TransactionService transactionService) {
+//         this.transactionService = transactionService;
+//     }
 
-    @PostMapping("/{userId}")
-    public TransactionLog addTransaction(
-            @PathVariable Long userId,
-            @RequestBody TransactionLog log
-    ) {
-        return transactionService.addTransaction(userId, log);
-    }
+//     @PostMapping("/{userId}")
+//     public TransactionLog addTransaction(
+//             @PathVariable Long userId,
+//             @RequestBody TransactionLog log
+//     ) {
+//         return transactionService.addTransaction(userId, log);
+//     }
 
-    @GetMapping("/user/{userId}")
-    public List<TransactionLog> getUserTransactions(
-            @PathVariable Long userId
-    ) {
-        return transactionService.getUserTransactions(userId);
-    }
-}
+//     @GetMapping("/user/{userId}")
+//     public List<TransactionLog> getUserTransactions(
+//             @PathVariable Long userId
+//     ) {
+//         return transactionService.getUserTransactions(userId);
+//     }
+// }
