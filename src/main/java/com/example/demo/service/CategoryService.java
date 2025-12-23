@@ -12,13 +12,11 @@
 // }
 package com.example.demo.service;
 
-import com.example.demo.model.Category;
+import com.example.demo.model.User;
 
-import java.util.List;
+public interface UserService {
 
-public interface CategoryService {
+    User register(User user);
 
-    Category addCategory(Category category);
-
-    List<Category> getAllCategories();
+    User findByEmail(String email);
 }
