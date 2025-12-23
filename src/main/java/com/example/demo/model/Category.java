@@ -1,95 +1,95 @@
-package com.example.demo.model;
+// package com.example.demo.model;
 
-import java.util.List;
+// import java.util.List;
 
-import com.example.demo.exception.BadRequestException;
+// import com.example.demo.exception.BadRequestException;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+// import jakarta.persistence.Column;
+// import jakarta.persistence.Entity;
+// import jakarta.persistence.GeneratedValue;
+// import jakarta.persistence.GenerationType;
+// import jakarta.persistence.Id;
+// import jakarta.persistence.OneToMany;
+// import jakarta.persistence.Table;
 
-@Entity
-@Table(name = "categories")
-public class Category {
+// @Entity
+// @Table(name = "categories")
+// public class Category {
 
-    public static final String TYPE_INCOME = "INCOME";
-    public static final String TYPE_EXPENSE = "EXPENSE";
+//     public static final String TYPE_INCOME = "INCOME";
+//     public static final String TYPE_EXPENSE = "EXPENSE";
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+//     @Id
+//     @GeneratedValue(strategy = GenerationType.IDENTITY)
+//     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String name;
+//     @Column(nullable = false, unique = true)
+//     private String name;
 
-    @Column(nullable = false)
-    private String type;
+//     @Column(nullable = false)
+//     private String type;
 
-    @OneToMany(mappedBy = "category")
-    private List<TransactionLog> transactionLogs;
+//     @OneToMany(mappedBy = "category")
+//     private List<TransactionLog> transactionLogs;
 
-    public Category() {}
+//     public Category() {}
 
-    public Category(Long id, String name, String type) {
-        this.id = id;
-        this.name = name;
-        this.type = type;
-    }
+//     public Category(Long id, String name, String type) {
+//         this.id = id;
+//         this.name = name;
+//         this.type = type;
+//     }
 
-    public void validateType() {
-        if (!TYPE_INCOME.equalsIgnoreCase(type)
-                && !TYPE_EXPENSE.equalsIgnoreCase(type)) {
-            throw new BadRequestException(
-                    "Invalid category type. Allowed values: INCOME or EXPENSE"
-            );
-        }
-        this.type = type.toUpperCase();
-    }
+//     public void validateType() {
+//         if (!TYPE_INCOME.equalsIgnoreCase(type)
+//                 && !TYPE_EXPENSE.equalsIgnoreCase(type)) {
+//             throw new BadRequestException(
+//                     "Invalid category type. Allowed values: INCOME or EXPENSE"
+//             );
+//         }
+//         this.type = type.toUpperCase();
+//     }
 
-    public static String getTypeIncome() {
-        return TYPE_INCOME;
-    }
+//     public static String getTypeIncome() {
+//         return TYPE_INCOME;
+//     }
 
-    public static String getTypeExpense() {
-        return TYPE_EXPENSE;
-    }
+//     public static String getTypeExpense() {
+//         return TYPE_EXPENSE;
+//     }
 
-    public Long getId() {
-        return id;
-    }
+//     public Long getId() {
+//         return id;
+//     }
 
-    public String getName() {
-        return name;
-    }
+//     public String getName() {
+//         return name;
+//     }
 
-    public String getType() {
-        return type;
-    }
+//     public String getType() {
+//         return type;
+//     }
 
-    public List<TransactionLog> getTransactionLogs() {
-        return transactionLogs;
-    }
+//     public List<TransactionLog> getTransactionLogs() {
+//         return transactionLogs;
+//     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+//     public void setId(Long id) {
+//         this.id = id;
+//     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+//     public void setName(String name) {
+//         this.name = name;
+//     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
+//     public void setType(String type) {
+//         this.type = type;
+//     }
 
-    public void setTransactionLogs(List<TransactionLog> transactionLogs) {
-        this.transactionLogs = transactionLogs;
-    }
+//     public void setTransactionLogs(List<TransactionLog> transactionLogs) {
+//         this.transactionLogs = transactionLogs;
+//     }
 
 
 
-}
+// }
