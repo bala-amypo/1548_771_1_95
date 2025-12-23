@@ -80,214 +80,215 @@
 // //                                                                                                                                                                                                                                                                 }
 
                                                                                                                                                                                                                                                                    
-// //                                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                                   // //                                                                                                                                                                                                                                                                    }
 
 
 
 
-// //correct code
-// package com.example.demo.model;
+                                                                                                                                                                                                                                                                   // //correct code
+                                                                                                                                                                                                                                                                   // package com.example.demo.model;
 
-// import jakarta.persistence.Column;
-// import jakarta.persistence.Entity;
-// import jakarta.persistence.EnumType;
-// import jakarta.persistence.Enumerated;
-// import jakarta.persistence.GeneratedValue;
-// import jakarta.persistence.GenerationType;
-// import jakarta.persistence.Id;
+                                                                                                                                                                                                                                                                   // import jakarta.persistence.Column;
+                                                                                                                                                                                                                                                                   // import jakarta.persistence.Entity;
+                                                                                                                                                                                                                                                                   // import jakarta.persistence.EnumType;
+                                                                                                                                                                                                                                                                   // import jakarta.persistence.Enumerated;
+                                                                                                                                                                                                                                                                   // import jakarta.persistence.GeneratedValue;
+                                                                                                                                                                                                                                                                   // import jakarta.persistence.GenerationType;
+                                                                                                                                                                                                                                                                   // import jakarta.persistence.Id;
 
-// @Entity
-// public class User {
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private Long id;
+                                                                                                                                                                                                                                                                   // @Entity
+                                                                                                                                                                                                                                                                   // public class User {
+                                                                                                                                                                                                                                                                   //     @Id
+                                                                                                                                                                                                                                                                   //     @GeneratedValue(strategy = GenerationType.IDENTITY)
+                                                                                                                                                                                                                                                                   //     private Long id;
 
-//     @Column(nullable = false)
-//     private String name;
+                                                                                                                                                                                                                                                                   //     @Column(nullable = false)
+                                                                                                                                                                                                                                                                   //     private String name;
 
-//     @Column(nullable = false, unique = true)
-//     private String email;
+                                                                                                                                                                                                                                                                   //     @Column(nullable = false, unique = true)
+                                                                                                                                                                                                                                                                   //     private String email;
 
-//     @Column(nullable = false)
-//     private String password; 
+                                                                                                                                                                                                                                                                   //     @Column(nullable = false)
+                                                                                                                                                                                                                                                                   //     private String password; 
 
-//     public enum Role{
-//         USER,
-//         ADMIN
-//     }
-//     @Enumerated(EnumType.STRING)
-//     @Column(nullable = false)
-//     private Role role = Role.USER; 
+                                                                                                                                                                                                                                                                   //     public enum Role{
+                                                                                                                                                                                                                                                                   //         USER,
+                                                                                                                                                                                                                                                                   //         ADMIN
+                                                                                                                                                                                                                                                                   //     }
+                                                                                                                                                                                                                                                                   //     @Enumerated(EnumType.STRING)
+                                                                                                                                                                                                                                                                   //     @Column(nullable = false)
+                                                                                                                                                                                                                                                                   //     private Role role = Role.USER; 
 
-//     public User() {}
+                                                                                                                                                                                                                                                                   //     public User() {}
 
-//     public User(String name, String email, String password) {
-//         this.name = name;
-//         this.email = email;
-//         this.password = password;
-//     }
+                                                                                                                                                                                                                                                                   //     public User(String name, String email, String password) {
+                                                                                                                                                                                                                                                                   //         this.name = name;
+                                                                                                                                                                                                                                                                   //         this.email = email;
+                                                                                                                                                                                                                                                                   //         this.password = password;
+                                                                                                                                                                                                                                                                   //     }
 
-//     public User(String name, String email, String password, Role role) {
-//         this.name = name;
-//         this.email = email;
-//         this.password = password;
-//         this.role = (role == null) ? Role.USER : role;
-//     }
+                                                                                                                                                                                                                                                                   //     public User(String name, String email, String password, Role role) {
+                                                                                                                                                                                                                                                                   //         this.name = name;
+                                                                                                                                                                                                                                                                   //         this.email = email;
+                                                                                                                                                                                                                                                                   //         this.password = password;
+                                                                                                                                                                                                                                                                   //         this.role = (role == null) ? Role.USER : role;
+                                                                                                                                                                                                                                                                   //     }
 
-//     public Long getId() {
-//         return id;
-//     }
+                                                                                                                                                                                                                                                                   //     public Long getId() {
+                                                                                                                                                                                                                                                                   //         return id;
+                                                                                                                                                                                                                                                                   //     }
 
-//     public void setId(Long id) {
-//         this.id = id;
-//     }
+                                                                                                                                                                                                                                                                   //     public void setId(Long id) {
+                                                                                                                                                                                                                                                                   //         this.id = id;
+                                                                                                                                                                                                                                                                   //     }
 
-//     public String getName() {
-//         return name;
-//     }
+                                                                                                                                                                                                                                                                   //     public String getName() {
+                                                                                                                                                                                                                                                                   //         return name;
+                                                                                                                                                                                                                                                                   //     }
 
-//     public void setName(String name) {
-//         this.name = name;
-//     }
+                                                                                                                                                                                                                                                                   //     public void setName(String name) {
+                                                                                                                                                                                                                                                                   //         this.name = name;
+                                                                                                                                                                                                                                                                   //     }
 
-//     public String getEmail() {
-//         return email;
-//     }
+                                                                                                                                                                                                                                                                   //     public String getEmail() {
+                                                                                                                                                                                                                                                                   //         return email;
+                                                                                                                                                                                                                                                                   //     }
 
-//     public void setEmail(String email) {
-//         this.email = email;
-//     }
+                                                                                                                                                                                                                                                                   //     public void setEmail(String email) {
+                                                                                                                                                                                                                                                                   //         this.email = email;
+                                                                                                                                                                                                                                                                   //     }
 
-//     public String getPassword() {
-//         return password;
-//     }
+                                                                                                                                                                                                                                                                   //     public String getPassword() {
+                                                                                                                                                                                                                                                                   //         return password;
+                                                                                                                                                                                                                                                                   //     }
 
-//     public void setPassword(String password) {
-//         this.password = password;
-//     }
+                                                                                                                                                                                                                                                                   //     public void setPassword(String password) {
+                                                                                                                                                                                                                                                                   //         this.password = password;
+                                                                                                                                                                                                                                                                   //     }
 
-//     public Role getRole() {
-//         return role;
-//     }
+                                                                                                                                                                                                                                                                   //     public Role getRole() {
+                                                                                                                                                                                                                                                                   //         return role;
+                                                                                                                                                                                                                                                                   //     }
 
-//     public void setRole(Role role) {
-//         this.role = role;
-//     }
-// }
+                                                                                                                                                                                                                                                                   //     public void setRole(Role role) {
+                                                                                                                                                                                                                                                                   //         this.role = role;
+                                                                                                                                                                                                                                                                   //     }
+                                                                                                                                                                                                                                                                   // }
 
 
 
-package com.example.demo.model;
+                                                                                                                                                                                                                                                                   package com.example.demo.model;
 
-import java.util.List;
+                                                                                                                                                                                                                                                                   import java.util.List;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
+                                                                                                                                                                                                                                                                   import jakarta.persistence.Column;
+                                                                                                                                                                                                                                                                   import jakarta.persistence.Entity;
+                                                                                                                                                                                                                                                                   import jakarta.persistence.EnumType;
+                                                                                                                                                                                                                                                                   import jakarta.persistence.Enumerated;
+                                                                                                                                                                                                                                                                   import jakarta.persistence.GeneratedValue;
+                                                                                                                                                                                                                                                                   import jakarta.persistence.GenerationType;
+                                                                                                                                                                                                                                                                   import jakarta.persistence.Id;
+                                                                                                                                                                                                                                                                   import jakarta.persistence.OneToMany;
+                                                                                                                                                                                                                                                                   import jakarta.persistence.Table;
+                                                                                                                                                                                                                                                                   import jakarta.persistence.UniqueConstraint;
 
-@Entity
-@Table(
-    name = "users",
-    uniqueConstraints = {
-        @UniqueConstraint(columnNames = "email")
-    }
-)
-public class User {
+                                                                                                                                                                                                                                                                   @Entity
+                                                                                                                                                                                                                                                                   @Table(
+                                                                                                                                                                                                                                                                       name = "users",
+                                                                                                                                                                                                                                                                           uniqueConstraints = {
+                                                                                                                                                                                                                                                                                   @UniqueConstraint(columnNames = "email")
+                                                                                                                                                                                                                                                                                       }
+                                                                                                                                                                                                                                                                                       )
+                                                                                                                                                                                                                                                                                       public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+                                                                                                                                                                                                                                                                                           @Id
+                                                                                                                                                                                                                                                                                               @GeneratedValue(strategy = GenerationType.IDENTITY)
+                                                                                                                                                                                                                                                                                                   private Long id;
 
-    @Column(nullable = false)
-    private String name;
+                                                                                                                                                                                                                                                                                                       @Column(nullable = false)
+                                                                                                                                                                                                                                                                                                           private String name;
 
-    @Column(nullable = false, unique = true)
-    private String email;
+                                                                                                                                                                                                                                                                                                               @Column(nullable = false, unique = true)
+                                                                                                                                                                                                                                                                                                                   private String email;
 
-    @Column(nullable = false)
-    private String password;
+                                                                                                                                                                                                                                                                                                                       @Column(nullable = false)
+                                                                                                                                                                                                                                                                                                                           private String password;
 
-    // ENUM
-    public enum Role {
-        USER,
-        ADMIN
-    }
+                                                                                                                                                                                                                                                                                                                               // ENUM
+                                                                                                                                                                                                                                                                                                                                   public enum Role {
+                                                                                                                                                                                                                                                                                                                                           USER,
+                                                                                                                                                                                                                                                                                                                                                   ADMIN
+                                                                                                                                                                                                                                                                                                                                                       }
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Role role = Role.USER;
+                                                                                                                                                                                                                                                                                                                                                           @Enumerated(EnumType.STRING)
+                                                                                                                                                                                                                                                                                                                                                               @Column(nullable = false)
+                                                                                                                                                                                                                                                                                                                                                                   private Role role = Role.USER;
 
-    // Relationships
-    @OneToMany(mappedBy = "user")
-    private List<TransactionLog> transactionLogs;
+                                                                                                                                                                                                                                                                                                                                                                       // Relationships
+                                                                                                                                                                                                                                                                                                                                                                           @OneToMany(mappedBy = "user")
+                                                                                                                                                                                                                                                                                                                                                                               private List<TransactionLog> transactionLogs;
 
-    @OneToMany(mappedBy = "user")
-    private List<BudgetPlan> budgetPlans;
+                                                                                                                                                                                                                                                                                                                                                                                   @OneToMany(mappedBy = "user")
+                                                                                                                                                                                                                                                                                                                                                                                       private List<BudgetPlan> budgetPlans;
 
-    // No-arg constructor
-    public User() {
-    }
+                                                                                                                                                                                                                                                                                                                                                                                           // No-arg constructor
+                                                                                                                                                                                                                                                                                                                                                                                               public User() {
+                                                                                                                                                                                                                                                                                                                                                                                                   }
 
-    // Parameterized constructor (ORDER MATTERS)
-    public User(
-            Long id,
-            String name,
-            String email,
-            String password,
-            Role role
-    ) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.role = (role == null) ? Role.USER : role;
-    }
+                                                                                                                                                                                                                                                                                                                                                                                                       // Parameterized constructor (ORDER MATTERS)
+                                                                                                                                                                                                                                                                                                                                                                                                           public User(
+                                                                                                                                                                                                                                                                                                                                                                                                                       Long id,
+                                                                                                                                                                                                                                                                                                                                                                                                                                   String name,
+                                                                                                                                                                                                                                                                                                                                                                                                                                               String email,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                           String password,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                       Role role
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ) {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   this.id = id;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           this.name = name;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   this.email = email;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           this.password = password;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   this.role = (role == null) ? Role.USER : role;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       }
 
-    // Getters & Setters
-    public Long getId() {
-        return id;
-    }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           // Getters & Setters
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               public Long getId() {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       return id;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           }
 
-    public String getName() {
-        return name;
-    }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               public String getName() {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       return name;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           }
 
-    public String getEmail() {
-        return email;
-    }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               public String getEmail() {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       return email;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           }
 
-    public String getPassword() {
-        return password;
-    }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               public String getPassword() {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       return password;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           }
 
-    public Role getRole() {
-        return role;
-    }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               public Role getRole() {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       return role;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               public void setId(Long id) {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       this.id = id;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               public void setName(String name) {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       this.name = name;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               public void setEmail(String email) {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       this.email = email;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               public void setPassword(String password) {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       this.password = password;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           }
 
-    public void setRole(Role role) {
-        this.role = role;
-    }
-}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               public void setRole(Role role) {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       this.role = role;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
