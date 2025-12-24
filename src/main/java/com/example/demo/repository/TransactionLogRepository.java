@@ -1,16 +1,37 @@
 
+// // package com.example.demo.repository;
+
+// // import java.time.LocalDate;
+// // import java.util.List;
+
+// // import org.springframework.data.jpa.repository.JpaRepository;
+
+// // import com.example.demo.model.TransactionLog;
+// // import com.example.demo.model.User;
+
+// // public interface TransactionLogRepository
+// //         extends JpaRepository<TransactionLog, Long> {
+
+// //     List<TransactionLog> findByUser(User user);
+
+// //     List<TransactionLog> findByUserAndTransactionDateBetween(
+// //             User user,
+// //             LocalDate start,
+// //             LocalDate end
+// //     );
+// // }
+
+
 // package com.example.demo.repository;
+
+// import com.example.demo.model.TransactionLog;
+// import com.example.demo.model.User;
+// import org.springframework.data.jpa.repository.JpaRepository;
 
 // import java.time.LocalDate;
 // import java.util.List;
 
-// import org.springframework.data.jpa.repository.JpaRepository;
-
-// import com.example.demo.model.TransactionLog;
-// import com.example.demo.model.User;
-
-// public interface TransactionLogRepository
-//         extends JpaRepository<TransactionLog, Long> {
+// public interface TransactionLogRepository extends JpaRepository<TransactionLog, Long> {
 
 //     List<TransactionLog> findByUser(User user);
 
@@ -20,24 +41,16 @@
 //             LocalDate end
 //     );
 // }
-
-
 package com.example.demo.repository;
 
-import com.example.demo.model.TransactionLog;
-import com.example.demo.model.User;
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.time.LocalDate;
 import java.util.List;
 
-public interface TransactionLogRepository extends JpaRepository<TransactionLog, Long> {
+import org.springframework.data.jpa.repository.JpaRepository;
 
-    List<TransactionLog> findByUser(User user);
+import com.example.demo.model.Transaction;
 
-    List<TransactionLog> findByUserAndTransactionDateBetween(
-            User user,
-            LocalDate start,
-            LocalDate end
-    );
+public interface TransactionLogRepository
+        extends JpaRepository<Transaction, Long> {
+
+    List<Transaction> findByUserId(Long userId);
 }
