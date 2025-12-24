@@ -171,27 +171,49 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.BudgetPlan;
+import com.example.demo.model.Transaction;
 import com.example.demo.repository.BudgetPlanRepository;
-import com.example.demo.service.BudgetPlanService;
+import com.example.demo.repository.TransactionRepository;
+import com.example.demo.service.BudgetSummaryService;
 
 @Service
-public class BudgetPlanServiceImpl implements BudgetPlanService {
+public class BudgetSummaryServiceImpl implements BudgetSummaryService {
 
     private final BudgetPlanRepository budgetPlanRepository;
+    private final TransactionRepository transactionRepository;
 
-    public BudgetPlanServiceImpl(BudgetPlanRepository budgetPlanRepository) {
+    public BudgetSummaryServiceImpl(
+            BudgetPlanRepository budgetPlanRepository,
+            TransactionRepository transactionRepository) {
         this.budgetPlanRepository = budgetPlanRepository;
+        this.transactionRepository = transactionRepository;
     }
 
     @Override
-    public BudgetPlan createBudgetPlan(Long userId, BudgetPlan budgetPlan) {
-        // TODO: attach user if needed
-        return budgetPlanRepository.save(budgetPlan);
+    public Double getTotalBudget(Long userId, Integer year, Integer month) {
+        List<BudgetPlan> plans =
+                budgetPlanRepository.findByUserIdAndYearAndMonth(userId, year, month);
+
+        return plans.stream()
+                .mapToDouble(BudgetPlan::getExpenseLimit)
+                .sum();
     }
 
     @Override
-    public List<BudgetPlan> getBudgetPlans(Long userId, Integer year, Integer month) {
-        return budgetPlanRepository
-                .findByUserIdAndYearAndMonth(userId, year, month);
+    public Double getTotalExpense(Long userId, Integer year, Integer month) {
+        List<Transaction> transactions =
+                transactionRepository.findByUserIdAndYearAndMonth(
+                        userId, year, month, "EXPENSE");
+
+        return transactions.stream()
+                .mapToDouble(Transaction::getAmount)
+                .sum();
+    }
+
+    @Override
+    public Double getRemainingBudget(Long userId, Integer year, Integer month) {
+        Double budget = getTotalBudget(userId, year, month);
+        Double expense = getTotalExpense(userId, year, month);
+        return budget - expense;
     }
 }
