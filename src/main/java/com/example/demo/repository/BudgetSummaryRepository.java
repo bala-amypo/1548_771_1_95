@@ -8,5 +8,6 @@ import java.util.Optional;
 
 public interface BudgetSummaryRepository extends JpaRepository<BudgetSummary, Long> {
 
+    // Retrieve summary for a specific budget plan
     Optional<BudgetSummary> findByBudgetPlan(BudgetPlan plan);
 }

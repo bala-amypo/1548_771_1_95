@@ -9,8 +9,10 @@ import java.util.List;
 
 public interface TransactionLogRepository extends JpaRepository<TransactionLog, Long> {
 
+    // Get all transactions for a user
     List<TransactionLog> findByUser(User user);
 
+    // Get transactions for a user within a date range (monthly queries)
     List<TransactionLog> findByUserAndTransactionDateBetween(
             User user,
             LocalDate start,
