@@ -2,17 +2,16 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.Collections;
 
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
 
-    public static final String ROLE_USER = "ROLE_USER";
+    public static final String ROLE_USER = "USER";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,8 +26,7 @@ public class User implements UserDetails {
 
     private String role;
 
-    public User() {
-    }
+    public User() {}
 
     public User(Long id, String name, String email, String password, String role) {
         this.id = id;
@@ -38,14 +36,10 @@ public class User implements UserDetails {
         this.role = role;
     }
 
-    // ===== Getters & Setters =====
+    // ===== getters & setters =====
 
     public Long getId() {
         return id;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public String getEmail() {
@@ -57,6 +51,11 @@ public class User implements UserDetails {
         return password;
     }
 
+    // 🔥 THIS IS THE MISSING METHOD
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getRole() {
         return role;
     }
@@ -65,7 +64,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role));
+        return Collections.emptyList();
     }
 
     @Override
@@ -73,23 +72,8 @@ public class User implements UserDetails {
         return email;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
+    @Override public boolean isAccountNonExpired() { return true; }
+    @Override public boolean isAccountNonLocked() { return true; }
+    @Override public boolean isCredentialsNonExpired() { return true; }
+    @Override public boolean isEnabled() { return true; }
 }
