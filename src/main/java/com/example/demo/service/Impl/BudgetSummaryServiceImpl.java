@@ -1,72 +1,48 @@
-package com.example.demo.service.impl;
+package com.example.demo.service.Impl;
 
+import com.example.demo.dto.BudgetSummaryResponse;
 import com.example.demo.exception.BadRequestException;
-import com.example.demo.model.*;
-import com.example.demo.repository.*;
+import com.example.demo.model.BudgetPlan;
+import com.example.demo.model.User;
+import com.example.demo.repository.BudgetPlanRepository;
+import com.example.demo.repository.TransactionRepository;
+import com.example.demo.repository.UserRepository;
 import com.example.demo.service.BudgetSummaryService;
+import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.YearMonth;
-import java.util.List;
-
+@Service   // ⭐ THIS LINE IS MANDATORY
 public class BudgetSummaryServiceImpl implements BudgetSummaryService {
 
-    private final BudgetSummaryRepository budgetSummaryRepository;
     private final BudgetPlanRepository budgetPlanRepository;
-    private final TransactionLogRepository transactionLogRepository;
+    private final TransactionRepository transactionRepository;
+    private final UserRepository userRepository;
 
-    public BudgetSummaryServiceImpl(BudgetSummaryRepository budgetSummaryRepository,
-                                    BudgetPlanRepository budgetPlanRepository,
-                                    TransactionLogRepository transactionLogRepository) {
-        this.budgetSummaryRepository = budgetSummaryRepository;
+    public BudgetSummaryServiceImpl(
+            BudgetPlanRepository budgetPlanRepository,
+            TransactionRepository transactionRepository,
+            UserRepository userRepository) {
         this.budgetPlanRepository = budgetPlanRepository;
-        this.transactionLogRepository = transactionLogRepository;
+        this.transactionRepository = transactionRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
-    public BudgetSummary generateSummary(Long budgetPlanId) {
-        BudgetPlan plan = budgetPlanRepository.findById(budgetPlanId)
+    public BudgetSummaryResponse getSummary(Long userId, int month, int year) {
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new BadRequestException("User not found"));
+
+        BudgetPlan plan = budgetPlanRepository
+                .findByUserAndMonthAndYear(user, month, year)
                 .orElseThrow(() -> new BadRequestException("Budget plan not found"));
 
-        YearMonth ym = YearMonth.of(plan.getYear(), plan.getMonth());
-        LocalDate start = ym.atDay(1);
-        LocalDate end = ym.atEndOfMonth();
+        double spent = transactionRepository
+                .sumExpensesByUserAndMonthAndYear(user, month, year);
 
-        List<TransactionLog> logs =
-                transactionLogRepository.findByUserAndTransactionDateBetween(
-                        plan.getUser(), start, end);
-
-        double income = 0;
-        double expense = 0;
-
-        for (TransactionLog log : logs) {
-            if (Category.TYPE_INCOME.equals(log.getCategory().getType())) {
-                income += log.getAmount();
-            } else {
-                expense += log.getAmount();
-            }
-        }
-
-        BudgetSummary summary = new BudgetSummary();
-        summary.setBudgetPlan(plan);
-        summary.setTotalIncome(income);
-        summary.setTotalExpense(expense);
-        summary.setStatus(
-                expense > plan.getExpenseLimit()
-                        ? BudgetSummary.STATUS_OVER_LIMIT
-                        : BudgetSummary.STATUS_UNDER_LIMIT
+        return new BudgetSummaryResponse(
+                plan.getExpenseLimit(),
+                spent,
+                plan.getExpenseLimit() - spent
         );
-
-        return budgetSummaryRepository.save(summary);
-    }
-
-    @Override
-    public BudgetSummary getSummary(Long budgetPlanId) {
-        BudgetPlan plan = budgetPlanRepository.findById(budgetPlanId)
-                .orElseThrow(() -> new BadRequestException("Budget plan not found"));
-
-        return budgetSummaryRepository
-                .findByBudgetPlan(plan)
-                .orElseThrow(() -> new BadRequestException("Summary not found"));
     }
 }
