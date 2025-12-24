@@ -6,9 +6,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface TransactionLogRepository
         extends JpaRepository<TransactionLog, Long> {
 
+    // ✅ For getUserTransactions()
+    List<TransactionLog> findByUser(User user);
+
+    // ✅ Optional: for monthly summary (future use)
     @Query("""
         SELECT COALESCE(SUM(t.amount), 0)
         FROM TransactionLog t
