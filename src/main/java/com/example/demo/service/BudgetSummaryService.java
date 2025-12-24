@@ -1,3 +1,14 @@
+// // package com.example.demo.service;
+
+// // import com.example.demo.model.BudgetSummary;
+
+// // public interface BudgetSummaryService {
+
+// //     BudgetSummary generateSummary(Long budgetPlanId);
+
+// //     BudgetSummary getSummary(Long budgetPlanId);
+// // }
+
 // package com.example.demo.service;
 
 // import com.example.demo.model.BudgetSummary;
@@ -11,11 +22,11 @@
 
 package com.example.demo.service;
 
-import com.example.demo.model.BudgetSummary;
-
 public interface BudgetSummaryService {
 
-    BudgetSummary generateSummary(Long budgetPlanId);
+    Double getTotalBudget(Long userId, Integer year, Integer month);
 
-    BudgetSummary getSummary(Long budgetPlanId);
+    Double getTotalExpense(Long userId, Integer year, Integer month);
+
+    Double getRemainingBudget(Long userId, Integer year, Integer month);
 }
