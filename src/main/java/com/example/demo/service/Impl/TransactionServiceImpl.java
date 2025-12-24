@@ -6,13 +6,11 @@ import com.example.demo.model.User;
 import com.example.demo.repository.TransactionLogRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.TransactionService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 @Service
-
 public class TransactionServiceImpl implements TransactionService {
 
     private final TransactionLogRepository transactionLogRepository;
