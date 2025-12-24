@@ -17,8 +17,10 @@ public class TransactionController {
     }
 
     @PostMapping("/{userId}")
-    public TransactionLog addTransaction(@PathVariable Long userId,
-                                         @RequestBody TransactionLog log) {
+    public TransactionLog addTransaction(
+            @PathVariable Long userId,
+            @RequestBody TransactionLog log
+    ) {
         return service.addTransaction(userId, log);
     }
 
