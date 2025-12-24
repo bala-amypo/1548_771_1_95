@@ -6,5 +6,6 @@ public interface BudgetPlanService {
 
     BudgetPlan createBudgetPlan(Long userId, BudgetPlan plan);
 
-    BudgetPlan getBudgetPlan(Long userId, Integer month, Integer year);
+    // 🔥 ADD THIS
+    BudgetPlan getBudgetPlan(Long userId, int month, int year);
 }
