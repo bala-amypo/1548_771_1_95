@@ -1,28 +1,17 @@
-package com.example.demo.service.Impl;
-
-import com.example.demo.dto.BudgetSummaryResponse;
-import com.example.demo.exception.BadRequestException;
-import com.example.demo.model.BudgetPlan;
-import com.example.demo.model.User;
-import com.example.demo.repository.BudgetPlanRepository;
-import com.example.demo.repository.TransactionRepository;
-import com.example.demo.repository.UserRepository;
-import com.example.demo.service.BudgetSummaryService;
-import org.springframework.stereotype.Service;
-
-@Service   // ⭐ THIS LINE IS MANDATORY
+@Service
 public class BudgetSummaryServiceImpl implements BudgetSummaryService {
 
     private final BudgetPlanRepository budgetPlanRepository;
-    private final TransactionRepository transactionRepository;
+    private final TransactionLogRepository transactionLogRepository;
     private final UserRepository userRepository;
 
     public BudgetSummaryServiceImpl(
             BudgetPlanRepository budgetPlanRepository,
-            TransactionRepository transactionRepository,
+            TransactionLogRepository transactionLogRepository,
             UserRepository userRepository) {
+
         this.budgetPlanRepository = budgetPlanRepository;
-        this.transactionRepository = transactionRepository;
+        this.transactionLogRepository = transactionLogRepository;
         this.userRepository = userRepository;
     }
 
@@ -30,19 +19,21 @@ public class BudgetSummaryServiceImpl implements BudgetSummaryService {
     public BudgetSummaryResponse getSummary(Long userId, int month, int year) {
 
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new BadRequestException("User not found"));
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
         BudgetPlan plan = budgetPlanRepository
                 .findByUserAndMonthAndYear(user, month, year)
-                .orElseThrow(() -> new BadRequestException("Budget plan not found"));
+                .orElseThrow(() -> new RuntimeException("Budget plan not found"));
 
-        double spent = transactionRepository
-                .sumExpensesByUserAndMonthAndYear(user, month, year);
+        double spent = transactionLogRepository
+                .sumByUserAndMonthAndYear(user, month, year);
+
+        double remaining = plan.getAmount() - spent;
 
         return new BudgetSummaryResponse(
-                plan.getExpenseLimit(),
+                plan.getAmount(),
                 spent,
-                plan.getExpenseLimit() - spent
+                remaining
         );
     }
 }
