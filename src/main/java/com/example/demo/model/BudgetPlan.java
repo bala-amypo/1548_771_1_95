@@ -16,13 +16,13 @@ public class BudgetPlan {
 
     private int month;
     private int year;
-    private double amount;
+
+    private double expenseLimit;   // ✅ renamed
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    // getters & setters
     public Long getId() {
         return id;
     }
@@ -43,12 +43,12 @@ public class BudgetPlan {
         this.year = year;
     }
 
-    public double getAmount() {
-        return amount;
+    public double getExpenseLimit() {
+        return expenseLimit;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
+    public void setExpenseLimit(double expenseLimit) {
+        this.expenseLimit = expenseLimit;
     }
 
     public User getUser() {
