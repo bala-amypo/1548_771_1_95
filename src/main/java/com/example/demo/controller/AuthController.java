@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.LoginRequest;
 import com.example.demo.dto.RegisterRequest;
+import com.example.demo.dto.AuthResponse;
 import com.example.demo.model.User;
 import com.example.demo.security.JwtTokenProvider;
 import com.example.demo.service.UserService;
@@ -28,34 +29,31 @@ public class AuthController {
 
     @PostMapping("/register")
     public User register(@RequestBody RegisterRequest request) {
-        User user = new User(
-                null,
+        User user = new User(null,
                 request.getName(),
                 request.getEmail(),
                 request.getPassword(),
-                User.ROLE_USER
-        );
+                User.ROLE_USER);
         return userService.register(user);
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginRequest request) {
+    public AuthResponse login(@RequestBody LoginRequest request) {
+        Authentication auth = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.getEmail(),
+                        request.getPassword()
+                )
+        );
 
-        Authentication authentication =
-                authenticationManager.authenticate(
-                        new UsernamePasswordAuthenticationToken(
-                                request.getEmail(),
-                                request.getPassword()
-                        )
-                );
-
-        User user = userService.findByEmail(request.getEmail());
-
-        return jwtTokenProvider.generateToken(
-                authentication,
+        User user = (User) auth.getPrincipal();
+        String token = jwtTokenProvider.generateToken(
+                auth,
                 user.getId(),
                 user.getEmail(),
                 user.getRole()
         );
+
+        return new AuthResponse(token, user.getId(), user.getEmail(), user.getRole());
     }
 }
