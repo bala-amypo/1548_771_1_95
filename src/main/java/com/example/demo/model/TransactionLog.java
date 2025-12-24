@@ -1,16 +1,27 @@
 package com.example.demo.model;
 
 import com.example.demo.exception.BadRequestException;
-
+import jakarta.persistence.*;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "transaction_logs")
 public class TransactionLog {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne(optional = false)
     private User user;
+
+    @ManyToOne(optional = false)
     private Category category;
+
     private Double amount;
+
     private String description;
+
     private LocalDate transactionDate;
 
     public TransactionLog() {}
@@ -27,12 +38,14 @@ public class TransactionLog {
 
     public void validate() {
         if (amount == null || amount <= 0) {
-            throw new BadRequestException("Amount must be > 0");
+            throw new BadRequestException("Amount must be positive");
         }
-        if (transactionDate.isAfter(LocalDate.now())) {
+        if (transactionDate != null && transactionDate.isAfter(LocalDate.now())) {
             throw new BadRequestException("Future date not allowed");
         }
     }
+
+    // getters & setters
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -41,11 +54,14 @@ public class TransactionLog {
     public void setUser(User user) { this.user = user; }
 
     public Category getCategory() { return category; }
+    public void setCategory(Category category) { this.category = category; }
 
     public Double getAmount() { return amount; }
     public void setAmount(Double amount) { this.amount = amount; }
 
-    public void setTransactionDate(LocalDate transactionDate) {
-        this.transactionDate = transactionDate;
-    }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
+
+    public LocalDate getTransactionDate() { return transactionDate; }
+    public void setTransactionDate(LocalDate transactionDate) { this.transactionDate = transactionDate; }
 }
