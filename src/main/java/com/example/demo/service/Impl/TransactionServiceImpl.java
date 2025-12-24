@@ -1,30 +1,41 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.*;
-import com.example.demo.repository.*;
+import com.example.demo.exception.BadRequestException;
+import com.example.demo.model.TransactionLog;
+import com.example.demo.model.User;
+import com.example.demo.repository.TransactionLogRepository;
+import com.example.demo.repository.UserRepository;
 import com.example.demo.service.TransactionService;
 
 import java.util.List;
 
 public class TransactionServiceImpl implements TransactionService {
 
-    private final TransactionLogRepository txRepo;
-    private final UserRepository userRepo;
+    private final TransactionLogRepository transactionLogRepository;
+    private final UserRepository userRepository;
 
-    public TransactionServiceImpl(TransactionLogRepository txRepo, UserRepository userRepo) {
-        this.txRepo = txRepo;
-        this.userRepo = userRepo;
+    public TransactionServiceImpl(TransactionLogRepository transactionLogRepository,
+                                  UserRepository userRepository) {
+        this.transactionLogRepository = transactionLogRepository;
+        this.userRepository = userRepository;
     }
 
+    @Override
     public TransactionLog addTransaction(Long userId, TransactionLog log) {
-        User user = userRepo.findById(userId).orElseThrow();
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new BadRequestException("User not found"));
+
         log.setUser(user);
         log.validate();
-        return txRepo.save(log);
+
+        return transactionLogRepository.save(log);
     }
 
+    @Override
     public List<TransactionLog> getUserTransactions(Long userId) {
-        User user = userRepo.findById(userId).orElseThrow();
-        return txRepo.findByUser(user);
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new BadRequestException("User not found"));
+
+        return transactionLogRepository.findByUser(user);
     }
 }

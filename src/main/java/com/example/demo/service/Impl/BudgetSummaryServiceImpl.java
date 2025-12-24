@@ -1,28 +1,72 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.exception.BadRequestException;
 import com.example.demo.model.*;
 import com.example.demo.repository.*;
 import com.example.demo.service.BudgetSummaryService;
 
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.util.List;
+
 public class BudgetSummaryServiceImpl implements BudgetSummaryService {
 
-    private final BudgetSummaryRepository summaryRepo;
-    private final BudgetPlanRepository planRepo;
-    private final TransactionLogRepository txRepo;
+    private final BudgetSummaryRepository budgetSummaryRepository;
+    private final BudgetPlanRepository budgetPlanRepository;
+    private final TransactionLogRepository transactionLogRepository;
 
-    public BudgetSummaryServiceImpl(BudgetSummaryRepository summaryRepo,
-                                    BudgetPlanRepository planRepo,
-                                    TransactionLogRepository txRepo) {
-        this.summaryRepo = summaryRepo;
-        this.planRepo = planRepo;
-        this.txRepo = txRepo;
+    public BudgetSummaryServiceImpl(BudgetSummaryRepository budgetSummaryRepository,
+                                    BudgetPlanRepository budgetPlanRepository,
+                                    TransactionLogRepository transactionLogRepository) {
+        this.budgetSummaryRepository = budgetSummaryRepository;
+        this.budgetPlanRepository = budgetPlanRepository;
+        this.transactionLogRepository = transactionLogRepository;
     }
 
+    @Override
     public BudgetSummary generateSummary(Long budgetPlanId) {
-        return null;
+        BudgetPlan plan = budgetPlanRepository.findById(budgetPlanId)
+                .orElseThrow(() -> new BadRequestException("Budget plan not found"));
+
+        YearMonth ym = YearMonth.of(plan.getYear(), plan.getMonth());
+        LocalDate start = ym.atDay(1);
+        LocalDate end = ym.atEndOfMonth();
+
+        List<TransactionLog> logs =
+                transactionLogRepository.findByUserAndTransactionDateBetween(
+                        plan.getUser(), start, end);
+
+        double income = 0;
+        double expense = 0;
+
+        for (TransactionLog log : logs) {
+            if (Category.TYPE_INCOME.equals(log.getCategory().getType())) {
+                income += log.getAmount();
+            } else {
+                expense += log.getAmount();
+            }
+        }
+
+        BudgetSummary summary = new BudgetSummary();
+        summary.setBudgetPlan(plan);
+        summary.setTotalIncome(income);
+        summary.setTotalExpense(expense);
+        summary.setStatus(
+                expense > plan.getExpenseLimit()
+                        ? BudgetSummary.STATUS_OVER_LIMIT
+                        : BudgetSummary.STATUS_UNDER_LIMIT
+        );
+
+        return budgetSummaryRepository.save(summary);
     }
 
+    @Override
     public BudgetSummary getSummary(Long budgetPlanId) {
-        return null;
+        BudgetPlan plan = budgetPlanRepository.findById(budgetPlanId)
+                .orElseThrow(() -> new BadRequestException("Budget plan not found"));
+
+        return budgetSummaryRepository
+                .findByBudgetPlan(plan)
+                .orElseThrow(() -> new BadRequestException("Summary not found"));
     }
 }
