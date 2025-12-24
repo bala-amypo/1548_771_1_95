@@ -8,7 +8,7 @@ import com.example.demo.repository.UserRepository;
 import com.example.demo.service.BudgetPlanService;
 import org.springframework.stereotype.Service;
 
-@Service   // 🔥 THIS IS REQUIRED
+@Service
 public class BudgetPlanServiceImpl implements BudgetPlanService {
 
     private final BudgetPlanRepository budgetPlanRepository;
@@ -26,13 +26,25 @@ public class BudgetPlanServiceImpl implements BudgetPlanService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new BadRequestException("User not found"));
 
-        budgetPlanRepository.findByUserAndMonthAndYear(
-                user, plan.getMonth(), plan.getYear()
-        ).ifPresent(p -> {
-            throw new BadRequestException("Budget plan already exists");
-        });
+        budgetPlanRepository
+                .findByUserAndMonthAndYear(user, plan.getMonth(), plan.getYear())
+                .ifPresent(p -> {
+                    throw new BadRequestException("Budget plan already exists");
+                });
 
         plan.setUser(user);
         return budgetPlanRepository.save(plan);
+    }
+
+    @Override
+    public BudgetPlan getBudgetPlan(Long userId, int month, int year) {
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new BadRequestException("User not found"));
+
+        return budgetPlanRepository
+                .findByUserAndMonthAndYear(user, month, year)
+                .orElseThrow(() ->
+                        new BadRequestException("Budget plan not found"));
     }
 }

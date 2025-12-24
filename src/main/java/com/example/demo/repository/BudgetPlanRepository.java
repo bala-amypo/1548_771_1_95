@@ -8,10 +8,9 @@ import java.util.Optional;
 
 public interface BudgetPlanRepository extends JpaRepository<BudgetPlan, Long> {
 
-    // Used to enforce one budget plan per user per month/year
     Optional<BudgetPlan> findByUserAndMonthAndYear(
             User user,
-            Integer month,
-            Integer year
+            int month,
+            int year
     );
 }
