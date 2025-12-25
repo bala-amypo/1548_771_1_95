@@ -8,6 +8,7 @@ import com.example.demo.service.TransactionService;
 
 import java.util.List;
 
+@Service 
 public class TransactionServiceImpl implements TransactionService {
 
     private final TransactionLogRepository transactionLogRepository;

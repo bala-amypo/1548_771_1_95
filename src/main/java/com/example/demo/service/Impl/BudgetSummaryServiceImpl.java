@@ -7,6 +7,7 @@ import com.example.demo.service.BudgetSummaryService;
 import java.time.LocalDate;
 import java.util.List;
 
+@Service 
 public class BudgetSummaryServiceImpl implements BudgetSummaryService {
 
     private final BudgetSummaryRepository budgetSummaryRepository;
