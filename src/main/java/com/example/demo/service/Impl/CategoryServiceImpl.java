@@ -4,6 +4,7 @@ import com.example.demo.exception.BadRequestException;
 import com.example.demo.model.Category;
 import com.example.demo.repository.CategoryRepository;
 import com.example.demo.service.CategoryService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service 
