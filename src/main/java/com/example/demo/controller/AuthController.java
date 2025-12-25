@@ -58,9 +58,9 @@ public class AuthController {
                 user.getRole()
         );
 
+        // ✅ ONLY 3 arguments — matches AuthResponse DTO
         return new AuthResponse(
                 token,
-                user.getId(),
                 user.getEmail(),
                 user.getRole()
         );
