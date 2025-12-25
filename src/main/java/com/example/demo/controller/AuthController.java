@@ -15,33 +15,32 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final UserService userService;
     private final AuthenticationManager authenticationManager;
+    private final UserService userService;
     private final JwtTokenProvider jwtTokenProvider;
 
-    public AuthController(UserService userService,
-                          AuthenticationManager authenticationManager,
+    public AuthController(AuthenticationManager authenticationManager,
+                          UserService userService,
                           JwtTokenProvider jwtTokenProvider) {
-        this.userService = userService;
         this.authenticationManager = authenticationManager;
+        this.userService = userService;
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
+    // ✅ REGISTER
     @PostMapping("/register")
-    public AuthResponse register(@RequestBody RegisterRequest request) {
-        User user = new User(
-                null,
-                request.getName(),
-                request.getEmail(),
-                request.getPassword(),
-                User.ROLE_USER
-        );
-        User saved = userService.register(user);
-        return new AuthResponse(null, saved);
+    public User register(@RequestBody RegisterRequest request) {
+        User user = new User();
+        user.setEmail(request.getEmail());
+        user.setPassword(request.getPassword());
+        user.setRole(request.getRole());
+        return userService.register(user);
     }
 
+    // ✅ LOGIN (FIXED)
     @PostMapping("/login")
     public AuthResponse login(@RequestBody LoginRequest request) {
+
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
@@ -49,13 +48,9 @@ public class AuthController {
                 )
         );
 
-        String token = jwtTokenProvider.generateToken(
-                authentication,
-                0L,
-                request.getEmail(),
-                "USER"
-        );
+        // ✅ ONLY EMAIL IS PASSED
+        String token = jwtTokenProvider.generateToken(request.getEmail());
 
-        return new AuthResponse(token, null);
+        return new AuthResponse(token);
     }
 }
