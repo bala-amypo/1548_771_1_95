@@ -17,8 +17,6 @@ public class JwtTokenProvider {
         this.validityInMs = validityInMs;
     }
 
-    // ===================== TOKEN CREATION =====================
-
     public String generateToken(Authentication authentication,
                                 Long userId,
                                 String email,
@@ -41,8 +39,6 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    // ===================== VALIDATION =====================
-
     public boolean validateToken(String token) {
         try {
             Jwts.parserBuilder()
@@ -54,8 +50,6 @@ public class JwtTokenProvider {
             return false;
         }
     }
-
-    // ===================== CLAIM EXTRACTION =====================
 
     public Long getUserIdFromToken(String token) {
         try {
