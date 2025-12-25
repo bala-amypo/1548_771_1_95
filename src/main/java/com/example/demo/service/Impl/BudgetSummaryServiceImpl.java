@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.List;
 
+
+@Service
 public class BudgetSummaryServiceImpl implements BudgetSummaryService {
 
     private final BudgetSummaryRepository budgetSummaryRepository;

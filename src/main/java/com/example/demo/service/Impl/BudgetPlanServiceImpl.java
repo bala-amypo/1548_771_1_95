@@ -8,6 +8,8 @@ import com.example.demo.repository.BudgetPlanRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.BudgetPlanService;
 
+
+@Service
 public class BudgetPlanServiceImpl implements BudgetPlanService {
 
     private final BudgetPlanRepository budgetPlanRepository;
