@@ -1,5 +1,6 @@
 package com.example.demo.config;
 
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import com.example.demo.security.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
