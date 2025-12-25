@@ -1,46 +1,74 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.exception.BadRequestException;
 import com.example.demo.model.BudgetPlan;
-import com.example.demo.model.User;
+import com.example.demo.model.BudgetSummary;
+import com.example.demo.model.Category;
+import com.example.demo.model.TransactionLog;
 import com.example.demo.repository.BudgetPlanRepository;
-import com.example.demo.repository.UserRepository;
-import com.example.demo.service.BudgetPlanService;
+import com.example.demo.repository.BudgetSummaryRepository;
+import com.example.demo.repository.TransactionLogRepository;
+import com.example.demo.service.BudgetSummaryService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.util.List;
+
 @Service
-public class BudgetPlanServiceImpl implements BudgetPlanService {
+public class BudgetSummaryServiceImpl implements BudgetSummaryService {
 
+    private final BudgetSummaryRepository budgetSummaryRepository;
     private final BudgetPlanRepository budgetPlanRepository;
-    private final UserRepository userRepository;
+    private final TransactionLogRepository transactionLogRepository;
 
-    public BudgetPlanServiceImpl(BudgetPlanRepository budgetPlanRepository,
-                                 UserRepository userRepository) {
+    public BudgetSummaryServiceImpl(BudgetSummaryRepository budgetSummaryRepository,
+                                    BudgetPlanRepository budgetPlanRepository,
+                                    TransactionLogRepository transactionLogRepository) {
+        this.budgetSummaryRepository = budgetSummaryRepository;
         this.budgetPlanRepository = budgetPlanRepository;
-        this.userRepository = userRepository;
+        this.transactionLogRepository = transactionLogRepository;
     }
 
     @Override
-    public BudgetPlan createBudgetPlan(Long userId, BudgetPlan plan) {
-        User user = userRepository.findById(userId).orElseThrow();
+    public BudgetSummary generateSummary(Long budgetPlanId) {
+        BudgetPlan plan = budgetPlanRepository.findById(budgetPlanId).orElseThrow();
 
-        if (budgetPlanRepository
-                .findByUserAndMonthAndYear(user, plan.getMonth(), plan.getYear())
-                .isPresent()) {
-            throw new BadRequestException("Budget plan already exists");
+        YearMonth ym = YearMonth.of(plan.getYear(), plan.getMonth());
+        LocalDate start = ym.atDay(1);
+        LocalDate end = ym.atEndOfMonth();
+
+        List<TransactionLog> logs =
+                transactionLogRepository.findByUserAndTransactionDateBetween(
+                        plan.getUser(), start, end);
+
+        double income = 0;
+        double expense = 0;
+
+        for (TransactionLog log : logs) {
+            if (Category.TYPE_INCOME.equals(log.getCategory().getType())) {
+                income += log.getAmount();
+            } else {
+                expense += log.getAmount();
+            }
         }
 
-        plan.setUser(user);
-        plan.validate();
-        return budgetPlanRepository.save(plan);
+        BudgetSummary summary = new BudgetSummary();
+        summary.setBudgetPlan(plan);
+        summary.setTotalIncome(income);
+        summary.setTotalExpense(expense);
+        summary.setStatus(
+                expense > plan.getExpenseLimit()
+                        ? BudgetSummary.STATUS_OVER_LIMIT
+                        : BudgetSummary.STATUS_UNDER_LIMIT
+        );
+
+        summary.onCreate();
+        return budgetSummaryRepository.save(summary);
     }
 
     @Override
-    public BudgetPlan getBudgetPlan(Long userId, Integer month, Integer year) {
-        User user = userRepository.findById(userId).orElseThrow();
-
-        return budgetPlanRepository
-                .findByUserAndMonthAndYear(user, month, year)
-                .orElseThrow();
+    public BudgetSummary getSummary(Long budgetPlanId) {
+        BudgetPlan plan = budgetPlanRepository.findById(budgetPlanId).orElseThrow();
+        return budgetSummaryRepository.findByBudgetPlan(plan).orElseThrow();
     }
 }
