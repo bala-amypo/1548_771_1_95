@@ -17,5 +17,5 @@ public interface BudgetPlanRepository
             User user,
             Integer month,
             Integer year
-    );
+    )
 }
