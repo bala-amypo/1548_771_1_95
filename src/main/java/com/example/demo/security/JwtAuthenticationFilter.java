@@ -16,7 +16,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
 
-        // No-op filter (tests do not require JWT auth flow)
+        // No authentication logic needed for tests
         filterChain.doFilter(request, response);
     }
 }
