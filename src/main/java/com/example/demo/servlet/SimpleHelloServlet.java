@@ -12,7 +12,7 @@ import java.io.IOException;
 public class SimpleHelloServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    public doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         response.setStatus(HttpServletResponse.SC_OK);
@@ -21,7 +21,7 @@ public class SimpleHelloServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    public doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         // Requirement: POST must return 200 OR 405, without exception
