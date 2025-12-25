@@ -24,6 +24,7 @@ public class SimpleHelloServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        // Allowed: return 200 or 405, no exception
         response.setStatus(HttpServletResponse.SC_OK);
     }
 }
