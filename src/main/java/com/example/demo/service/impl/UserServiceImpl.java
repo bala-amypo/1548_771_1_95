@@ -1,4 +1,4 @@
-\package com.example.demo.service.impl;
+package com.example.demo.service.impl;
 
 import com.example.demo.exception.BadRequestException;
 import com.example.demo.model.User;
@@ -24,10 +24,13 @@ public class UserServiceImpl implements UserService {
         if (userRepository.existsByEmail(user.getEmail())) {
             throw new BadRequestException("Email already exists");
         }
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+
         if (user.getRole() == null) {
             user.setRole(User.ROLE_USER);
         }
+
         return userRepository.save(user);
     }
 }
