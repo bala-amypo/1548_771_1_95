@@ -34,4 +34,13 @@ public class BudgetPlanServiceImpl implements BudgetPlanService {
         plan.validate();
         return budgetPlanRepository.save(plan);
     }
+
+    @Override
+    public BudgetPlan getBudgetPlan(Long userId, Integer month, Integer year) {
+        User user = userRepository.findById(userId).orElseThrow();
+
+        return budgetPlanRepository
+                .findByUserAndMonthAndYear(user, month, year)
+                .orElseThrow();
+    }
 }
