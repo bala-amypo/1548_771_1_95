@@ -27,20 +27,21 @@ public class AuthController {
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
-    // ✅ REGISTER
     @PostMapping("/register")
-    public User register(@RequestBody RegisterRequest request) {
+    public AuthResponse register(@RequestBody RegisterRequest request) {
         User user = new User();
         user.setEmail(request.getEmail());
         user.setPassword(request.getPassword());
-        user.setRole(request.getRole());
-        return userService.register(user);
+        // ✅ ROLE IS SET INSIDE UserServiceImpl (ROLE_USER)
+
+        User savedUser = userService.register(user);
+
+        String token = jwtTokenProvider.generateToken(savedUser.getEmail());
+        return new AuthResponse(token);
     }
 
-    // ✅ LOGIN (FIXED)
     @PostMapping("/login")
     public AuthResponse login(@RequestBody LoginRequest request) {
-
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
@@ -48,9 +49,7 @@ public class AuthController {
                 )
         );
 
-        // ✅ ONLY EMAIL IS PASSED
         String token = jwtTokenProvider.generateToken(request.getEmail());
-
         return new AuthResponse(token);
     }
 }
