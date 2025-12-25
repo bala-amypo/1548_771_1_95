@@ -1,6 +1,9 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.*;
+import com.example.demo.model.BudgetPlan;
+import com.example.demo.model.BudgetSummary;
+import com.example.demo.model.Category;
+import com.example.demo.model.TransactionLog;
 import com.example.demo.repository.BudgetPlanRepository;
 import com.example.demo.repository.BudgetSummaryRepository;
 import com.example.demo.repository.TransactionLogRepository;
@@ -58,7 +61,14 @@ public class BudgetSummaryServiceImpl implements BudgetSummaryService {
                         ? BudgetSummary.STATUS_OVER_LIMIT
                         : BudgetSummary.STATUS_UNDER_LIMIT
         );
+
         summary.onCreate();
         return budgetSummaryRepository.save(summary);
+    }
+
+    @Override
+    public BudgetSummary getSummary(Long budgetPlanId) {
+        BudgetPlan plan = budgetPlanRepository.findById(budgetPlanId).orElseThrow();
+        return budgetSummaryRepository.findByBudgetPlan(plan).orElseThrow();
     }
 }
