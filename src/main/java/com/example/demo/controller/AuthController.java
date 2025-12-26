@@ -32,7 +32,6 @@ public class AuthController {
         User user = new User();
         user.setEmail(request.getEmail());
         user.setPassword(request.getPassword());
-        // ✅ ROLE IS SET INSIDE UserServiceImpl (ROLE_USER)
 
         User savedUser = userService.register(user);
 
