@@ -3,7 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.BudgetPlan;
 import com.example.demo.service.BudgetPlanService;
 import org.springframework.web.bind.annotation.*;
-
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 @RestController
 @RequestMapping("/budgets")
 @SecurityRequirement(name="bearerAuth")
