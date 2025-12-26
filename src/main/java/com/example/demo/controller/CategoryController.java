@@ -8,6 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/categories")
+@SecurityRequirement(name="bearerAuth")
 public class CategoryController {
 
     private final CategoryService categoryService;

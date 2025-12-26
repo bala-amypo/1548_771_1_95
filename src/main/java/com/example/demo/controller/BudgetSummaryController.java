@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/summary")
+@SecurityRequirement(name="bearerAuth")
 public class BudgetSummaryController {
 
     private final BudgetSummaryService budgetSummaryService;

@@ -8,6 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/transactions")
+@SecurityRequirement(name="bearerAuth")
 public class TransactionController {
 
     private final TransactionService transactionService;

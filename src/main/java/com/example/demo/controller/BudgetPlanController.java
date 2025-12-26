@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/budgets")
+@SecurityRequirement(name="bearerAuth")
 public class BudgetPlanController {
 
     private final BudgetPlanService budgetPlanService;
