@@ -7,8 +7,16 @@ public class AuthResponse {
     public AuthResponse() {
     }
 
-    public AuthResponse(String token) {
+    public AuthResponse(String message,String token) {
         this.token = token;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public String getToken() {
