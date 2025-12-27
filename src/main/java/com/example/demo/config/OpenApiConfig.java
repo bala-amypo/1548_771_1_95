@@ -16,18 +16,18 @@ public class OpenApiConfig {
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
-                // ✅ API Info
+        
                 .info(new Info()
                         .title("JWT Demo API")
                         .version("1.0")
                         .description("Simple JWT Demo Project for Students"))
 
-                // ✅ Server configuration
+        
                 .servers(List.of(
                         new Server().url("https://9072.pro604cr.amypo.ai")
                 ))
 
-                // ✅ JWT Security Scheme
+                
                 .components(new Components()
                         .addSecuritySchemes("bearerAuth",
                                 new SecurityScheme()
