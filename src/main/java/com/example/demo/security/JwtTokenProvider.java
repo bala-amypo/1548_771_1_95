@@ -12,63 +12,70 @@ import java.util.Date;
 @Component
 public class JwtTokenProvider {
 
-    private static final String DEFAULT_SECRET =
-            "THIS_IS_A_VERY_LONG_AND_SECURE_SECRET_KEY_FOR_JWT_DEMO_256_BITS";
-    private static final long DEFAULT_EXPIRATION = 86400000;
-
-    private static final SecretKey KEY =
-            Keys.hmacShaKeyFor(DEFAULT_SECRET.getBytes(StandardCharsets.UTF_8));
+    private String secret = "THIS_IS_A_VERY_LONG_AND_SECURE_SECRET_KEY_FOR_JWT_DEMO_256_BITS";
+    private long expiration = 86400000;
+    private SecretKey key;
 
     public JwtTokenProvider() {
-        // required by Spring
+        this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
 
-    // ✅ Constructor expected by TESTS
+    // ✅ Test uses this constructor to pass the custom secret
     public JwtTokenProvider(String secret, long expiration) {
-        // tests only check existence, not usage
+        this.secret = secret;
+        this.expiration = expiration;
+        this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
 
-    // ✅ Used by AuthController
     public String generateToken(String email) {
         return Jwts.builder()
                 .setSubject(email)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + DEFAULT_EXPIRATION))
-                .signWith(KEY, SignatureAlgorithm.HS256)
+                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    // ✅ Used by TESTS
-    public String generateToken(Authentication authentication,
-                                long userId,
-                                String email,
-                                String role) {
-
+    public String generateToken(Authentication authentication, long userId, String email, String role) {
         return Jwts.builder()
                 .claim("userId", userId)
                 .claim("role", role)
                 .setSubject(email)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + DEFAULT_EXPIRATION))
-                .signWith(KEY, SignatureAlgorithm.HS256)
+                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
 
     public boolean validateToken(String token) {
         try {
-            Jwts.parserBuilder()
-                    .setSigningKey(KEY)
-                    .build()
-                    .parseClaimsJws(token);
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (JwtException | IllegalArgumentException e) {
             return false;
         }
     }
 
+    // ✅ FIXED: Now checks for 'userId' claim, then falls back to 'subject'
     public Long getUserIdFromToken(String token) {
         Claims claims = getClaims(token);
-        return claims.get("userId", Long.class);
+        
+        // 1. Try to get userId claim
+        Object userIdClaim = claims.get("userId");
+        if (userIdClaim != null) {
+            return Long.valueOf(userIdClaim.toString());
+        }
+        
+        // 2. Fallback to Subject (as required by test t50)
+        String subject = claims.getSubject();
+        if (subject != null) {
+            try {
+                return Long.parseLong(subject);
+            } catch (NumberFormatException e) {
+                return null;
+            }
+        }
+        return null;
     }
 
     public String getEmailFromToken(String token) {
@@ -76,13 +83,12 @@ public class JwtTokenProvider {
     }
 
     public String getRoleFromToken(String token) {
-        Claims claims = getClaims(token);
-        return claims.get("role", String.class);
+        return getClaims(token).get("role", String.class);
     }
 
     private Claims getClaims(String token) {
         return Jwts.parserBuilder()
-                .setSigningKey(KEY)
+                .setSigningKey(key)
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
