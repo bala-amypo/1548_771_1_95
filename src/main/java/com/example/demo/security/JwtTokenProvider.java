@@ -55,17 +55,14 @@ public class JwtTokenProvider {
         }
     }
 
-    // ✅ FIXED: Now checks for 'userId' claim, then falls back to 'subject'
     public Long getUserIdFromToken(String token) {
         Claims claims = getClaims(token);
         
-        // 1. Try to get userId claim
         Object userIdClaim = claims.get("userId");
         if (userIdClaim != null) {
             return Long.valueOf(userIdClaim.toString());
         }
         
-        // 2. Fallback to Subject (as required by test t50)
         String subject = claims.getSubject();
         if (subject != null) {
             try {
