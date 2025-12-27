@@ -17,8 +17,8 @@ public class SimpleHelloServlet extends HttpServlet {
 
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType("text/plain");
-        // response.getWriter().write("SimpleHelloServlet");
-        response.getWritet().write("Hello from Simple Servlet");
+        response.getWriter().write("SimpleHelloServlet");
+        response.getWriter().write("Hello from Simple Servlet");
     }
 
     @Override
