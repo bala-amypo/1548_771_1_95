@@ -27,17 +27,32 @@ public class AuthController {
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
+    // @PostMapping("/register")
+    // public AuthResponse register(@RequestBody RegisterRequest request) {
+    //     User user = new User();
+    //     user.setEmail(request.getEmail());
+    //     user.setPassword(request.getPassword());
+
+    //     User savedUser = userService.register(user);
+
+    //     String token = jwtTokenProvider.generateToken(savedUser.getEmail());
+    //     return new AuthResponse("Registered Successfully",token);
+    // }
+
     @PostMapping("/register")
-    public AuthResponse register(@RequestBody RegisterRequest request) {
-        User user = new User();
-        user.setEmail(request.getEmail());
-        user.setPassword(request.getPassword());
+public AuthResponse register(@RequestBody RegisterRequest request) {
 
-        User savedUser = userService.register(user);
+    User user = new User();
+    user.setName(request.getName());          // ✅ IMPORTANT FIX
+    user.setEmail(request.getEmail());
+    user.setPassword(request.getPassword());
+    user.setRole(request.getRole());          // ✅ also good practice
 
-        String token = jwtTokenProvider.generateToken(savedUser.getEmail());
-        return new AuthResponse("Registered Successfully",token);
-    }
+    User savedUser = userService.register(user);
+
+    String token = jwtTokenProvider.generateToken(savedUser.getEmail());
+    return new AuthResponse("Registered successfully", token);
+}
 
     @PostMapping("/login")
     public AuthResponse login(@RequestBody LoginRequest request) {
