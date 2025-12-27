@@ -20,7 +20,6 @@ public class JwtTokenProvider {
         this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
 
-    // ✅ Test uses this constructor to pass the custom secret
     public JwtTokenProvider(String secret, long expiration) {
         this.secret = secret;
         this.expiration = expiration;
