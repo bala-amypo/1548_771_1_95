@@ -17,15 +17,19 @@ public class SimpleHelloServlet extends HttpServlet {
 
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType("text/plain");
-        response.getWriter().write("SimpleHelloServlet");
+        // Removed the extra write() call that was causing the string mismatch
         response.getWriter().write("Hello from Simple Servlet");
     }
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        // Allowed: return 200 or 405, no exception
         response.setStatus(HttpServletResponse.SC_OK);
+    }
+
+    // Added this method to satisfy the t4_servletInfo test case
+    @Override
+    public String getServletInfo() {
+        return "SimpleHelloServlet Info";
     }
 }
