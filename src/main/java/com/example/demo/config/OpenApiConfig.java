@@ -20,7 +20,7 @@ public class OpenApiConfig {
                 .info(new Info()
                         .title("JWT Demo API")
                         .version("1.0")
-                        .description("Simple JWT Demo Project for Students"))
+                        .description("SimpleHelloServlet"))
 
         
                 .servers(List.of(
