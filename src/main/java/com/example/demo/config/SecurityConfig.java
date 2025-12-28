@@ -42,7 +42,7 @@ public class SecurityConfig {
     //     return http.build();
     // }
     @Bean
-public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthenticationFilter jwtFilter) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthenticationFilter jwtFilter) throws Exception {
     http
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth
@@ -55,3 +55,4 @@ public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthenticationFilte
     return http.build();
 }
 }
+
