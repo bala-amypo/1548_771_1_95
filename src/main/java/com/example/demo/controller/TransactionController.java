@@ -1,14 +1,45 @@
+// package com.example.demo.controller;
+
+// import com.example.demo.model.TransactionLog;
+// import com.example.demo.service.TransactionService;
+// import org.springframework.web.bind.annotation.*;
+// import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+// import java.util.List;
+
+// @RestController
+// @RequestMapping("/transactions")
+// @SecurityRequirement(name="bearerAuth")
+// public class TransactionController {
+
+//     private final TransactionService transactionService;
+
+//     public TransactionController(TransactionService transactionService) {
+//         this.transactionService = transactionService;
+//     }
+
+//     @PostMapping("/{userId}")
+//     public TransactionLog addTransaction(
+//             @PathVariable Long userId,
+//             @RequestBody TransactionLog log) {
+//         return transactionService.addTransaction(userId, log);
+//     }
+
+//     @GetMapping("/user/{userId}")
+//     public List<TransactionLog> getUserTransactions(@PathVariable Long userId) {
+//         return transactionService.getUserTransactions(userId);
+//     }
+// }
 package com.example.demo.controller;
 
 import com.example.demo.model.TransactionLog;
 import com.example.demo.service.TransactionService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 import java.util.List;
 
 @RestController
 @RequestMapping("/transactions")
-@SecurityRequirement(name="bearerAuth")
 public class TransactionController {
 
     private final TransactionService transactionService;
@@ -17,6 +48,7 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
 
+    @PreAuthorize("hasRole('USER')")
     @PostMapping("/{userId}")
     public TransactionLog addTransaction(
             @PathVariable Long userId,
@@ -24,6 +56,7 @@ public class TransactionController {
         return transactionService.addTransaction(userId, log);
     }
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/user/{userId}")
     public List<TransactionLog> getUserTransactions(@PathVariable Long userId) {
         return transactionService.getUserTransactions(userId);
