@@ -1,136 +1,3 @@
-// // // // package com.example.demo.controller;
-
-// // // // import com.example.demo.dto.AuthResponse;
-// // // // import com.example.demo.dto.LoginRequest;
-// // // // import com.example.demo.dto.RegisterRequest;
-// // // // import com.example.demo.model.User;
-// // // // import com.example.demo.security.JwtTokenProvider;
-// // // // import com.example.demo.service.UserService;
-// // // // import org.springframework.security.authentication.AuthenticationManager;
-// // // // import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-// // // // import org.springframework.security.core.Authentication;
-// // // // import org.springframework.web.bind.annotation.*;
-
-// // // // @RestController
-// // // // @RequestMapping("/auth")
-// // // // public class AuthController {
-
-// // // //     private final AuthenticationManager authenticationManager;
-// // // //     private final UserService userService;
-// // // //     private final JwtTokenProvider jwtTokenProvider;
-
-// // // //     public AuthController(AuthenticationManager authenticationManager,
-// // // //                           UserService userService,
-// // // //                           JwtTokenProvider jwtTokenProvider) {
-// // // //         this.authenticationManager = authenticationManager;
-// // // //         this.userService = userService;
-// // // //         this.jwtTokenProvider = jwtTokenProvider;
-// // // //     }
-
-// // // //     // @PostMapping("/register")
-// // // //     // public AuthResponse register(@RequestBody RegisterRequest request) {
-// // // //     //     User user = new User();
-// // // //     //     user.setEmail(request.getEmail());
-// // // //     //     user.setPassword(request.getPassword());
-
-// // // //     //     User savedUser = userService.register(user);
-
-// // // //     //     String token = jwtTokenProvider.generateToken(savedUser.getEmail());
-// // // //     //     return new AuthResponse("Registered Successfully",token);
-// // // //     // }
-
-// // // //     @PostMapping("/register")
-// // // // public AuthResponse register(@RequestBody RegisterRequest request) {
-
-// // // //     User user = new User();
-// // // //     user.setName(request.getName());          // ✅ IMPORTANT FIX
-// // // //     user.setEmail(request.getEmail());
-// // // //     user.setPassword(request.getPassword());
-// // // //     user.setRole(request.getRole());          // ✅ also good practice
-
-// // // //     User savedUser = userService.register(user);
-
-// // // //     String token = jwtTokenProvider.generateToken(savedUser.getEmail());
-// // // //     return new AuthResponse("Registered successfully", token);
-// // // // }
-
-// // // //     @PostMapping("/login")
-// // // //     public AuthResponse login(@RequestBody LoginRequest request) {
-// // // //         Authentication authentication = authenticationManager.authenticate(
-// // // //                 new UsernamePasswordAuthenticationToken(
-// // // //                         request.getEmail(),
-// // // //                         request.getPassword()
-// // // //                 )
-// // // //         );
-
-// // // //         String token = jwtTokenProvider.generateToken(request.getEmail());
-// // // //         return new AuthResponse("Login Successfull",token);
-// // // //     }
-// // // // }
-
-// // // package com.example.demo.controller;
-
-// // // import com.example.demo.dto.AuthResponse;
-// // // import com.example.demo.dto.LoginRequest;
-// // // import com.example.demo.dto.RegisterRequest;
-// // // import com.example.demo.model.User;
-// // // import com.example.demo.security.JwtTokenProvider;
-// // // import com.example.demo.service.UserService;
-// // // import jakarta.validation.Valid;
-// // // import org.springframework.security.authentication.AuthenticationManager;
-// // // import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-// // // import org.springframework.security.core.Authentication;
-// // // import org.springframework.web.bind.annotation.*;
-
-// // // @RestController
-// // // @RequestMapping("/auth")
-// // // public class AuthController {
-
-// // //     private final AuthenticationManager authenticationManager;
-// // //     private final UserService userService;
-// // //     private final JwtTokenProvider jwtTokenProvider;
-
-// // //     public AuthController(AuthenticationManager authenticationManager,
-// // //                           UserService userService,
-// // //                           JwtTokenProvider jwtTokenProvider) {
-// // //         this.authenticationManager = authenticationManager;
-// // //         this.userService = userService;
-// // //         this.jwtTokenProvider = jwtTokenProvider;
-// // //     }
-
-// // //     // ✅ REGISTER
-// // //     @PostMapping("/register")
-// // //     public AuthResponse register(@Valid @RequestBody RegisterRequest request) {
-
-// // //         User user = new User();
-// // //         user.setName(request.getName());          // ✅ FIXED (no more NULL)
-// // //         user.setEmail(request.getEmail());
-// // //         user.setPassword(request.getPassword()); // encoded in service
-// // //         user.setRole(request.getRole());          // default USER
-
-// // //         User savedUser = userService.register(user);
-
-// // //         String token = jwtTokenProvider.generateToken(savedUser.getEmail());
-
-// // //         return new AuthResponse("Registered successfully", token);
-// // //     }
-
-// // //     // ✅ LOGIN
-// // //     @PostMapping("/login")
-// // //     public AuthResponse login(@Valid @RequestBody LoginRequest request) {
-
-// // //         Authentication authentication = authenticationManager.authenticate(
-// // //                 new UsernamePasswordAuthenticationToken(
-// // //                         request.getEmail(),
-// // //                         request.getPassword()
-// // //                 )
-// // //         );
-
-// // //         String token = jwtTokenProvider.generateToken(request.getEmail());
-
-// // //         return new AuthResponse("Login successful", token);
-// // //     }
-// // // }
 // // package com.example.demo.controller;
 
 // // import com.example.demo.dto.AuthResponse;
@@ -139,9 +6,9 @@
 // // import com.example.demo.model.User;
 // // import com.example.demo.security.JwtTokenProvider;
 // // import com.example.demo.service.UserService;
-// // import jakarta.validation.Valid;
 // // import org.springframework.security.authentication.AuthenticationManager;
 // // import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+// // import org.springframework.security.core.Authentication;
 // // import org.springframework.web.bind.annotation.*;
 
 // // @RestController
@@ -160,28 +27,36 @@
 // //         this.jwtTokenProvider = jwtTokenProvider;
 // //     }
 
-// //     // ========================= REGISTER =========================
+// //     // @PostMapping("/register")
+// //     // public AuthResponse register(@RequestBody RegisterRequest request) {
+// //     //     User user = new User();
+// //     //     user.setEmail(request.getEmail());
+// //     //     user.setPassword(request.getPassword());
+
+// //     //     User savedUser = userService.register(user);
+
+// //     //     String token = jwtTokenProvider.generateToken(savedUser.getEmail());
+// //     //     return new AuthResponse("Registered Successfully",token);
+// //     // }
+
 // //     @PostMapping("/register")
-// //     public AuthResponse register(@Valid @RequestBody RegisterRequest request) {
+// // public AuthResponse register(@RequestBody RegisterRequest request) {
 
-// //         User user = new User();
-// //         user.setName(request.getName());              // ✅ FIX (name saved)
-// //         user.setEmail(request.getEmail());
-// //         user.setPassword(request.getPassword());      // encoded in service
-// //         user.setRole(request.getRole());              // USER by default
+// //     User user = new User();
+// //     user.setName(request.getName());          // ✅ IMPORTANT FIX
+// //     user.setEmail(request.getEmail());
+// //     user.setPassword(request.getPassword());
+// //     user.setRole(request.getRole());          // ✅ also good practice
 
-// //         User savedUser = userService.register(user);
+// //     User savedUser = userService.register(user);
 
-// //         String token = jwtTokenProvider.generateToken(savedUser.getEmail());
+// //     String token = jwtTokenProvider.generateToken(savedUser.getEmail());
+// //     return new AuthResponse("Registered successfully", token);
+// // }
 
-// //         return new AuthResponse("Registered successfully", token);
-// //     }
-
-// //     // ========================= LOGIN =========================
 // //     @PostMapping("/login")
-// //     public AuthResponse login(@Valid @RequestBody LoginRequest request) {
-
-// //         authenticationManager.authenticate(
+// //     public AuthResponse login(@RequestBody LoginRequest request) {
+// //         Authentication authentication = authenticationManager.authenticate(
 // //                 new UsernamePasswordAuthenticationToken(
 // //                         request.getEmail(),
 // //                         request.getPassword()
@@ -189,10 +64,10 @@
 // //         );
 
 // //         String token = jwtTokenProvider.generateToken(request.getEmail());
-
-// //         return new AuthResponse("Login successful", token);
+// //         return new AuthResponse("Login Successfull",token);
 // //     }
 // // }
+
 // package com.example.demo.controller;
 
 // import com.example.demo.dto.AuthResponse;
@@ -201,6 +76,7 @@
 // import com.example.demo.model.User;
 // import com.example.demo.security.JwtTokenProvider;
 // import com.example.demo.service.UserService;
+// import jakarta.validation.Valid;
 // import org.springframework.security.authentication.AuthenticationManager;
 // import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 // import org.springframework.security.core.Authentication;
@@ -210,30 +86,38 @@
 // @RequestMapping("/auth")
 // public class AuthController {
 
-//     private final UserService userService;
 //     private final AuthenticationManager authenticationManager;
+//     private final UserService userService;
 //     private final JwtTokenProvider jwtTokenProvider;
 
-//     public AuthController(UserService userService,
-//                           AuthenticationManager authenticationManager,
+//     public AuthController(AuthenticationManager authenticationManager,
+//                           UserService userService,
 //                           JwtTokenProvider jwtTokenProvider) {
-//         this.userService = userService;
 //         this.authenticationManager = authenticationManager;
+//         this.userService = userService;
 //         this.jwtTokenProvider = jwtTokenProvider;
 //     }
 
+//     // ✅ REGISTER
 //     @PostMapping("/register")
-//     public User register(@RequestBody RegisterRequest request) {
+//     public AuthResponse register(@Valid @RequestBody RegisterRequest request) {
+
 //         User user = new User();
-//         user.setName(request.getName());
+//         user.setName(request.getName());          // ✅ FIXED (no more NULL)
 //         user.setEmail(request.getEmail());
-//         user.setPassword(request.getPassword());
-//         user.setRole(request.getRole()); // USER or ADMIN
-//         return userService.register(user);
+//         user.setPassword(request.getPassword()); // encoded in service
+//         user.setRole(request.getRole());          // default USER
+
+//         User savedUser = userService.register(user);
+
+//         String token = jwtTokenProvider.generateToken(savedUser.getEmail());
+
+//         return new AuthResponse("Registered successfully", token);
 //     }
 
+//     // ✅ LOGIN
 //     @PostMapping("/login")
-//     public AuthResponse login(@RequestBody LoginRequest request) {
+//     public AuthResponse login(@Valid @RequestBody LoginRequest request) {
 
 //         Authentication authentication = authenticationManager.authenticate(
 //                 new UsernamePasswordAuthenticationToken(
@@ -242,16 +126,9 @@
 //                 )
 //         );
 
-//         User user = userService.findByEmail(request.getEmail());
+//         String token = jwtTokenProvider.generateToken(request.getEmail());
 
-//         String token = jwtTokenProvider.generateToken(
-//                 authentication,
-//                 user.getId(),
-//                 user.getEmail(),
-//                 user.getRole()
-//         );
-
-//         return new AuthResponse(token);
+//         return new AuthResponse("Login successful", token);
 //     }
 // }
 package com.example.demo.controller;
@@ -262,48 +139,49 @@ import com.example.demo.dto.RegisterRequest;
 import com.example.demo.model.User;
 import com.example.demo.security.JwtTokenProvider;
 import com.example.demo.service.UserService;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
+    private final UserService userService;
+    private final JwtTokenProvider jwtTokenProvider;
 
-    @Autowired
-    private JwtTokenProvider jwtTokenProvider;
+    public AuthController(AuthenticationManager authenticationManager,
+                          UserService userService,
+                          JwtTokenProvider jwtTokenProvider) {
+        this.authenticationManager = authenticationManager;
+        this.userService = userService;
+        this.jwtTokenProvider = jwtTokenProvider;
+    }
 
-    @Autowired
-    private UserService userService;
-
-    // ===================== REGISTER =====================
+    // ========================= REGISTER =========================
     @PostMapping("/register")
-    public AuthResponse register(@RequestBody RegisterRequest request) {
+    public AuthResponse register(@Valid @RequestBody RegisterRequest request) {
 
         User user = new User();
-        user.setName(request.getName());
+        user.setName(request.getName());              // ✅ FIX (name saved)
         user.setEmail(request.getEmail());
-        user.setPassword(request.getPassword());
-        user.setRole(request.getRole()); // USER by default
+        user.setPassword(request.getPassword());      // encoded in service
+        user.setRole(request.getRole());              // USER by default
 
         User savedUser = userService.register(user);
 
         String token = jwtTokenProvider.generateToken(savedUser.getEmail());
 
-        return new AuthResponse("Registration successful", token);
+        return new AuthResponse("Registered successfully", token);
     }
 
-    // ===================== LOGIN =====================
+    // ========================= LOGIN =========================
     @PostMapping("/login")
-    public AuthResponse login(@RequestBody LoginRequest request) {
+    public AuthResponse login(@Valid @RequestBody LoginRequest request) {
 
-        Authentication authentication = authenticationManager.authenticate(
+        authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
                         request.getPassword()
