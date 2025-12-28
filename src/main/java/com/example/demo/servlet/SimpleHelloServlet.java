@@ -31,5 +31,4 @@ public class SimpleHelloServlet extends HttpServlet {
                                                                                                 @Override
                                                                                                     public String getServletInfo() {
                                                                                                             return "SimpleHelloServlet Info";
-                                                                                                                }
-                                                                                                                }
+                                                                                                    }
