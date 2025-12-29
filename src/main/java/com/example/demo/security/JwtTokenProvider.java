@@ -113,15 +113,11 @@ public class JwtTokenProvider {
             Keys.hmacShaKeyFor(DEFAULT_SECRET.getBytes(StandardCharsets.UTF_8));
 
     public JwtTokenProvider() {
-        // required by Spring
     }
 
-    // ✅ Constructor expected by TESTS
     public JwtTokenProvider(String secret, long expiration) {
-        // tests only check existence, not usage
     }
 
-    // ✅ Used by AuthController
     public String generateToken(String email) {
         return Jwts.builder()
                 .setSubject(email)
@@ -131,7 +127,6 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    // ✅ Used by TESTS
     public String generateToken(Authentication authentication,
                                 long userId,
                                 String email,
